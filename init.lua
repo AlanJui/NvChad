@@ -1,0 +1,67 @@
+local opt = vim.opt
+local exec = vim.api.nvim_exec -- execute Vimscript
+local set = vim.opt -- global options
+local cmd = vim.cmd -- execute Vim commands
+
+-- -----------------------------------------------
+-- options
+-- -----------------------------------------------
+set.wrap = false -- don't automatically wrap on load
+set.showmatch = true -- show the matching part of the pair for [] {} and ()
+set.cursorline = true -- highlight current line
+
+-- -----------------------------------------------
+opt.colorcolumn = "80"
+-- line numbers
+opt.relativenumber = true -- show relative line numbers
+opt.number = true -- shows absolute line number on cursor line (when relative number is on)
+-- Disable swap file
+opt.swapfile = false
+opt.backup = false
+opt.writebackup = false
+-- Folding
+opt.foldcolumn = "1"
+opt.foldlevel = 99 --- Using ufo provider need a large value
+opt.foldlevelstart = 99 --- Expand all folds by default
+opt.foldenable = true --- Use spaces instead of tabs
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- -----------------------------------------------
+-- 啟用／關閉：顯示 Tab 控制字元
+-- -----------------------------------------------
+-- 初始狀態
+vim.g.tab_char_state = 0
+
+-- 切換控制字元設置的函數
+function _G.toggle_tab_chars()
+  if vim.g.tab_char_state == 0 then
+    vim.g.tab_char_state = 1
+    vim.opt.list = true
+    vim.opt.listchars = "tab:»·,trail:╳"
+  elseif vim.g.tab_char_state == 1 then
+    vim.g.tab_char_state = 2
+    vim.opt.listchars = "eol:↵,tab:»·,trail:╳,extends:»,precedes:«"
+  else
+    vim.g.tab_char_state = 0
+    vim.opt.list = false
+    vim.opt.listchars = ""
+  end
+end
+
+-- 設置快捷鍵
+vim.cmd([[
+  set list
+  command! ToggleTabDisplay lua _G.toggle_tab_chars()
+]])
+vim.api.nvim_set_keymap("n", "<leader>v", ":ToggleTabDisplay<CR>", { noremap = true, silent = true })
+
+-------------------------------------------------
+-- 針對 Markdown 文件的設置
+-------------------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.shiftwidth = 8
+    vim.opt.tabstop = 8
+    vim.opt.softtabstop = 8
+  end,
+})
