@@ -21,12 +21,6 @@ M.treesitter = {
     "vue",
     "yaml",
   },
-  indent = {
-    enable = true,
-    -- disable = {
-    --   "python"
-    -- },
-  },
 }
 
 M.mason = {
@@ -42,9 +36,6 @@ M.mason = {
     "html-lsp",
     "eslint-lsp",
     "prettier",
-    -- Node.js Debugger: "node-debug2-adapter"
-    -- "node2",
-    -- JavaScript Debugger: "js-debug-adapter"
     "js-debug-adapter",
 
     -- c/cpp stuff
