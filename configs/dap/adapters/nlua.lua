@@ -1,7 +1,4 @@
-local dap = _G.safe_require("dap")
-if not dap then
-  return
-end
+local dap = require("dap")
 
 dap.adapters.nlua = function(callback, config)
   callback({

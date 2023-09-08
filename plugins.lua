@@ -174,6 +174,7 @@ local plugins = {
   ----------------------------------------------------------------------------
   -- UI
   ----------------------------------------------------------------------------
+  -- File Explorer
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
@@ -224,104 +225,6 @@ local plugins = {
       config = true,
     },
   },
-  ----------------------------------------------------------------------------
-  -- DAP
-  ----------------------------------------------------------------------------
-  {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
-      require("dapui").setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end,
-  },
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("custom.configs.dap")
-      require("core.utils").load_mappings("dap")
-    end,
-  },
-  -- DAP for Lua work in Neovim
-  {
-    "jbyuki/one-small-step-for-vimkind",
-    keys = {
-      {
-        "<leader>daL",
-        function()
-          require("osv").launch({ port = 8086 })
-        end,
-        desc = "Start Lua Debugger Server",
-      },
-      {
-        "<leader>dal",
-        function()
-          require("osv").run_this()
-        end,
-        desc = "Launch Lua Code",
-      },
-    },
-    config = function()
-      require("custom.configs.dap.adapters.nlua")
-    end,
-  },
-
-  -- DAP for Python
-  {
-    "mfussenegger/nvim-dap-python",
-    ft = "python",
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "rcarriga/nvim-dap-ui",
-    },
-    keys = {
-      {
-        "<leader>daP",
-        function()
-          require("dap-python").test_method()
-        end,
-        desc = "Start Python Debugger Server",
-      },
-      {
-        "<leader>dap",
-        function()
-          require("dap-python").test_class()
-        end,
-        desc = "Launch Python Code",
-      },
-    },
-    config = function(_, _)
-      -- local path = "~/.local/share/NvChad/mason/packages/debugpy/venv/bin/python"
-      -- require("dap-python").setup(path)
-      -- require("core.utils").load_mappings("dap_python")
-      require("custom.configs.dap.adapters.python")
-    end,
-  },
-
-  -- DAP for Node.js (nvim-dap adapter for vscode-js-debug)
-  -- { -- Debugger
-  --   "microsoft/vscode-js-debug",
-  --   build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-  --   opt = true,
-  -- },
-  { -- Plugin
-    "mxsdev/nvim-dap-vscode-js",
-    dependencies = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("custom.configs.dap.adapters.js")
-    end,
-  },
   ----------------------------------------------------------------------------------------------------------
   -- Git
   ----------------------------------------------------------------------------------------------------------
@@ -335,6 +238,9 @@ local plugins = {
       "ibhagwan/fzf-lua", -- optional
     },
     cmd = "Neogit",
+    keys = {
+      { "<leader>gn", "<cmd>Neogit<cr>", desc = "Neogit" },
+    },
     opts = {
       integrations = {
         diffview = true,
@@ -487,6 +393,115 @@ local plugins = {
       end,
     },
   },
+  ----------------------------------------------------------------------------
+  -- DAP
+  ----------------------------------------------------------------------------
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "mfussenegger/nvim-dap-python",
+      "jbyuki/one-small-step-for-vimkind",
+      "mxsdev/nvim-dap-vscode-js",
+      -- build debugger from source
+      {
+        "microsoft/vscode-js-debug",
+        -- version = "1.x",
+        build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+      },
+    },
+    config = function()
+      -- Setup DAP Environment
+      require("custom.configs.dap")
+      -- Setup DAP for JS/TS
+      require("custom.configs.dap.adapters.js").setup()
+      -- Load keymappings for DAP
+      require("core.utils").load_mappings("dap")
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      require("dapui").setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        -- dapui.open()
+        dapui.open({ reset = true })
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  },
+  -- DAP for Lua work in Neovim
+  {
+    "jbyuki/one-small-step-for-vimkind",
+    keys = {
+      {
+        "<leader>daL",
+        function()
+          require("osv").launch({ port = 8086 })
+        end,
+        desc = "Start Lua Debugger Server",
+      },
+      {
+        "<leader>dal",
+        function()
+          require("osv").run_this()
+        end,
+        desc = "Launch Lua Code",
+      },
+    },
+    config = function()
+      require("custom.configs.dap.adapters.nlua")
+    end,
+  },
+  -- DAP for Python
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    keys = {
+      {
+        "<leader>daP",
+        function()
+          require("dap-python").test_method()
+        end,
+        desc = "Start Python Debugger Server",
+      },
+      {
+        "<leader>dap",
+        function()
+          require("dap-python").test_class()
+        end,
+        desc = "Launch Python Code",
+      },
+    },
+    config = function(_, _)
+      require("custom.configs.dap.adapters.python")
+    end,
+  },
+  -- DAP for Node.js (nvim-dap adapter for vscode-js-debug)
+  -- { -- Debugger
+  --   "microsoft/vscode-js-debug",
+  --   -- build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+  --   build = "npm install && npm run compile vsDebugServerBundle && mv dist out",
+  -- },
+  -- { -- Plugin
+  --   "mxsdev/nvim-dap-vscode-js",
+  --   config = function()
+  --     require("custom.configs.dap.adapters.js").setup()
+  --   end,
+  -- },
 }
 
 return plugins

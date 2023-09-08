@@ -1,9 +1,10 @@
-local dap = _G.safe_require("dap")
-local dap_python = _G.safe_require("dap-python")
-if not dap or not dap_python then
-  return
-end
+local dap = require("dap")
+local dap_adapter = require("dap-python")
 
+local debugpy_python_path = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python"
+dap_adapter.setup(debugpy_python_path)
+
+-------------------------------------------------------------------------------
 local function get_venv_python_path()
   local workspace_folder = vim.fn.getcwd()
 
@@ -19,8 +20,6 @@ local function get_venv_python_path()
 end
 
 local venv_python_path = get_venv_python_path()
-local debugpy_python_path = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python"
-
 dap.adapters.python = {
   type = "executable",
   command = debugpy_python_path,

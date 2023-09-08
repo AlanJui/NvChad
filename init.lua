@@ -1,3 +1,6 @@
+-- vscode format i.e json files
+vim.g.vscode_snippets_path = vim.fn.stdpath("config") .. "/lua/custom/my_snippets"
+
 local opt = vim.opt
 local exec = vim.api.nvim_exec -- execute Vimscript
 local set = vim.opt -- global options
