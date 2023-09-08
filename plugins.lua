@@ -9,6 +9,32 @@ local plugins = {
     opts = overrides.treesitter,
   },
   {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      "nvim-telescope/telescope-project.nvim",
+      "nvim-telescope/telescope-dap.nvim",
+      "ahmedkhalf/project.nvim",
+      "cljoly/telescope-repo.nvim",
+      "stevearc/aerial.nvim",
+      "nvim-telescope/telescope-frecency.nvim",
+      "aaronhallaert/advanced-git-search.nvim",
+      "benfowler/telescope-luasnip.nvim",
+      "olacin/telescope-cc.nvim",
+      "tsakirist/telescope-lazy.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+          require("telescope").load_extension("fzf")
+        end,
+      },
+    },
+    opts = overrides.telescope,
+  },
+  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "TroubleToggle", "Trouble" },
@@ -96,6 +122,27 @@ local plugins = {
   ----------------------------------------------------------------------------
   -- Editting
   ----------------------------------------------------------------------------
+  -- Surround
+  { "echasnovski/mini.nvim", version = false },
+  {
+    "echasnovski/mini.surround",
+    version = false,
+    lazy = false,
+    config = function()
+      require("mini.surround").setup({
+        add = "sa", -- Add surrounding in Normal and Visual modes
+        delete = "sd", -- Delete surrounding
+        find = "sf", -- Find surrounding (to the right)
+        find_left = "sF", -- Find surrounding (to the left)
+        highlight = "sh", -- Highlight surrounding
+        replace = "sr", -- Replace surrounding
+        update_n_lines = "sn", -- Update `n_lines`
+
+        suffix_last = "l", -- Suffix to search with "prev" method
+        suffix_next = "n", -- Suffix to search with "next" method       mappings = {
+      })
+    end,
+  },
   -- A code outline window for skimming and quick navigation
   {
     "stevearc/aerial.nvim",
@@ -502,6 +549,44 @@ local plugins = {
   --     require("custom.configs.dap.adapters.js").setup()
   --   end,
   -- },
+  -------------------------------------------------------------------------------
+  -- Tools
+  -------------------------------------------------------------------------------
+  -- Todo matches on any text that starts with one of your defined keywords (or alt)
+  -- followed by a colon:
+  --
+  --  TODO: do something
+  --  FIX: this should be fixed
+  --  HACK: weird code warning
+  --
+  --Todos are highlighted in all regular files.
+  -------------------------------------------------------------------------------
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = "BufReadPost",
+    config = true,
+    keys = {
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next todo comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous todo comment",
+      },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+      { "<leader>sT", "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
+    },
+  },
 }
 
 return plugins

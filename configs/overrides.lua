@@ -1,5 +1,28 @@
 local M = {}
 
+M.telescope = {
+  defaults = {
+    mappings = {
+      n = {
+        [":"] = { "<cmd>Telescope command_history<cr>", desc = "Command History" },
+      },
+    },
+  },
+  extensions_list = {
+    "themes",
+    "terms",
+    "luasnip",
+    "file_browser",
+    "ui-select",
+    "project",
+    "aerial",
+    "frecency",
+    "live_grep_args",
+    "conventional_commits",
+    "lazy",
+  },
+}
+
 M.treesitter = {
   ensure_installed = {
     "python",
