@@ -1,5 +1,13 @@
 local M = {}
 
+-- In order to disable a default keymap, use
+M.disabled = {
+  n = {
+    ["<leader>ma"] = "",
+    ["<leader>th"] = "", -- theme switcher
+  },
+}
+
 ---------------------------------------------------------------------------
 -- Build Tools
 ---------------------------------------------------------------------------
@@ -98,13 +106,28 @@ M.nvimtree = {
 M.telescope = {
   plugin = true,
   n = {
-    ["<leader>fl"] = { "<CMD> Telescope live_grep <CR>", "Live Grep" },
+    ["<leader>,"] = { "<cmd>Telescope buffers show_all_buffers=true<cr>", "Switch Buffer" },
+    ["<leader>fb"] = { "<CMD> Telescope file_browser <CR>", "File Browser" },
+    ["<leader>fc"] = { "<CMD> Telescope command_history <CR>", "Command History" },
+    ["<leader>fl"] = { "<CMD> Telescope luasnip <CR>", "LuaSnip Snippets" },
+    ["<leader>fL"] = { "<CMD> Telescope lazy <CR>", "Plugins installed via lazy.nvim" },
+    ["<leader>fg"] = { "<CMD> Telescope live_grep <CR>", "Live Grep" },
+    ["<leader>fG"] = {
+      "<cmd> lua require'telescope'.extensions.live_grep_args.live_grep_args() <CR>",
+      "Live grep args picker",
+    },
     ["<leader>fd"] = { "<CMD> Telescope diagnostics <CR>", "Diagnostics" },
     ["<leader>fm"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+    ["<leader>fp"] = { "<cmd> lua require'telescope'.extensions.project.project{} <CR>", "Switch between Projects" },
     -- pick a hidden term
     ["<leader>ft"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
     -- theme switcher
     ["<leader>ut"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
+    -- code
+    ["<leader>fD"] = { "<cmd>Telescope dap configurations<cr>", "DAP Config Picker" },
+    ["<leader>fO"] = { "<cmd>Telescope aerial<cr>", "Code Outline" },
+    -- Themes
+    ["<leader>fT"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
   },
 }
 
@@ -197,6 +220,12 @@ M.nvterm = {
         require("nvterm.terminal").toggle("float")
       end,
       "Toggle floating term",
+    },
+    ["<leader>tt"] = {
+      function()
+        require("nvterm.terminal").toggle("horizontal")
+      end,
+      "Toggle horizontal term",
     },
     ["<leader>th"] = {
       function()

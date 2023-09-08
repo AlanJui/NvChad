@@ -11,18 +11,17 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      "nvim-telescope/telescope-dap.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-project.nvim",
-      "nvim-telescope/telescope-dap.nvim",
-      "ahmedkhalf/project.nvim",
-      "cljoly/telescope-repo.nvim",
-      "stevearc/aerial.nvim",
-      "nvim-telescope/telescope-frecency.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
       "aaronhallaert/advanced-git-search.nvim",
+      "ahmedkhalf/project.nvim",
       "benfowler/telescope-luasnip.nvim",
+      "cljoly/telescope-repo.nvim",
       "olacin/telescope-cc.nvim",
+      "stevearc/aerial.nvim",
       "tsakirist/telescope-lazy.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -31,8 +30,21 @@ local plugins = {
           require("telescope").load_extension("fzf")
         end,
       },
+      {
+        "nvim-telescope/telescope-frecency.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        config = function()
+          require("telescope").load_extension("frecency")
+        end,
+      },
     },
-    opts = overrides.telescope,
+    cmd = "Telescope",
+    init = function()
+      require("core.utils").load_mappings("telescope")
+    end,
+    config = function()
+      require("custom.configs.telescope")
+    end,
   },
   {
     "folke/trouble.nvim",
@@ -160,12 +172,13 @@ local plugins = {
     dependices = { "nvim-treesitter" },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     keys = {
-      { "<leader>ct", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Block" },
+      { "<leader>m", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Block" },
       { "<leader>cj", "<cmd>TSJJoin<cr>", desc = "Join Block" },
       { "<leader>cs", "<cmd>TSJSplit<cr>", desc = "Split Block" },
     },
     config = function()
       require("treesj").setup({})
+      require("core.utils").load_mappings("treesj")
     end,
   },
   -- active indent guide and indent text objects
