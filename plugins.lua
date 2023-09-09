@@ -1,4 +1,5 @@
 local overrides = require("custom.configs.overrides")
+local Util = require("custom.utils")
 
 local plugins = {
   ----------------------------------------------------------------------------
@@ -223,6 +224,36 @@ local plugins = {
       require("core.utils").load_mappings("nvterm")
     end,
   },
+  -- ToggleTerm
+  {
+    "akinsho/toggleterm.nvim",
+    keys = {
+      { [[<C-t>]] },
+      {
+        "<leader>0",
+        "<cmd>2ToggleTerm<cr>",
+        desc = "Terminal #2",
+      },
+    },
+    cmd = { "ToggleTerm", "TermExec" },
+    opts = {
+      size = 20,
+      hide_numbers = true, -- hide the number column in toggleterm buffers
+      shade_filetypes = {},
+      autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
+      shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+      shading_factor = "0.3", -- the percentage by which to lighten terminal background, default: -30 (gets multiplied by -3 if background is light)
+      start_in_insert = true,
+      insert_mappings = true, -- whether or not the open mapping applies in insert mode
+      terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+      direction = "float",
+      shell = vim.o.shell,
+      auto_scroll = true, -- automatically scroll to the bottom on terminal output
+    },
+    config = function()
+      require("custom.configs.toggleterm")
+    end,
+  },
   -- Build Code
   {
     "pianocomposer321/yabs.nvim",
@@ -288,6 +319,28 @@ local plugins = {
   ----------------------------------------------------------------------------------------------------------
   -- Git
   ----------------------------------------------------------------------------------------------------------
+  -- LazyGit
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = "LazyGit",
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+      {
+        "<leader>ug",
+        function()
+          Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false })
+        end,
+        desc = "Lazygit (root dir)",
+      },
+      {
+        "<leader>uG",
+        function()
+          Util.float_term({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
+        end,
+        desc = "Lazygit (cwd)",
+      },
+    },
+  },
   -- A work-in-progress Magit clone for Neovim that is geared toward the Vim philosophy.
   {
     "TimUntersberger/neogit",
@@ -565,6 +618,21 @@ local plugins = {
   -------------------------------------------------------------------------------
   -- Tools
   -------------------------------------------------------------------------------
+  -- File Manager
+  {
+    "vifm/vifm.vim",
+    lazy = false,
+    cmd = { "Vifm", "VifmOpen", "VifmTabOpen", "VifmSplitOpen", "VifmVsplitOpen" },
+    keys = {
+      {
+        "<leader>uv",
+        function()
+          vim.cmd("Vifm")
+        end,
+        desc = "Open Vifm",
+      },
+    },
+  },
   -- Todo matches on any text that starts with one of your defined keywords (or alt)
   -- followed by a colon:
   --
