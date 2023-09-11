@@ -5,6 +5,7 @@ local M = {}
 -- In order to disable a default keymap, use
 M.disabled = {
   n = {
+    ["<leader>D"] = "", -- LSP definition type
     ["<leader>ma"] = "",
     ["<leader>th"] = "", -- theme switcher
     ["<leader>ls"] = "", -- LSP signature help
@@ -101,8 +102,106 @@ M.general = {
     -- Git
     ---------------------------------------------------------------------------
     ["<leader>g"] = { "+git" },
+    ["]g"] = {
+      function()
+        require("gitsigns").next_hunk()
+      end,
+      desc = "Next Git hunk",
+    },
+    ["[g"] = {
+      function()
+        require("gitsigns").prev_hunk()
+      end,
+      desc = "Previous Git hunk",
+    },
+    ["<leader>gl"] = { ":Git log<CR>", "List log with details" },
+    ["<leader>gL"] = { ":Git log --oneline<CR>", "List log within one line" },
+    ["<leader>gp"] = { ":Git push<CR>", "push" },
+    ["<leader>gP"] = { ":Git pull<CR>", "pull" },
+    ["<leader>gr"] = { ":GRemove<CR>", "remove" },
+    ["<leader>gS"] = { ":Git<CR>", "status" },
+    ["<leader>gT"] = {
+      ':Git log --no-walk --tags --pretty="%h %d %s" --decorate=full<CR>',
+      "List all tags in log",
+    },
+    ["<leader>gs"] = { "+Git Signs" },
+    ["<leader>gsb"] = {
+      function()
+        require("gitsigns").blame_line()
+      end,
+      desc = "View Git blame",
+    },
+    ["<leader>gsB"] = {
+      function()
+        require("gitsigns").blame_line({ full = true })
+      end,
+      desc = "View full Git blame",
+    },
+    ["<leader>gsp"] = {
+      function()
+        require("gitsigns").preview_hunk()
+      end,
+      desc = "Preview Git hunk",
+    },
+    ["<leader>gsh"] = {
+      function()
+        require("gitsigns").reset_hunk()
+      end,
+      desc = "Reset Git hunk",
+    },
+    ["<leader>gsr"] = {
+      function()
+        require("gitsigns").reset_buffer()
+      end,
+      desc = "Reset Git buffer",
+    },
+    ["<leader>gss"] = {
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      desc = "Stage Git hunk",
+    },
+    ["<leader>gsS"] = {
+      function()
+        require("gitsigns").stage_buffer()
+      end,
+      desc = "Stage Git buffer",
+    },
+    ["<leader>gsu"] = {
+      function()
+        require("gitsigns").undo_stage_hunk()
+      end,
+      desc = "Unstage Git hunk",
+    },
+    ["<leader>gA"] = { ":Git add .<CR>", "add all" },
+    ["<leader>gb"] = { ":Git blame<CR>", "blame" },
+    ["<leader>gB"] = { ":GBrowse<CR>", "Browse GitHub repo" },
+    ["<leader>gc"] = { ":Git commit<CR>", "commit" },
+    ["<leader>gd"] = { "+Diff" },
+    ["<leader>gds"] = {
+      function()
+        require("gitsigns").diffthis()
+      end,
+      desc = "View Git diff",
+    },
+    ["<leader>gdd"] = { ":Gvdiffsplit<CR>", "diff vsplit" },
+    ["<leader>gdh"] = { ":Gdiffsplit<CR>", "diff split" },
+    ["<leader>gdv"] = { ":Gvdiffsplit<CR>", "diff vsplit" },
+    ["<leader>gdn"] = { ":Git diff<CR>", "Normal diff" },
+    -- Gist
+    -- ["<leader>gS"] = { "+Gist" },
+    -- ["<leader>gSa"] = {":Gist -a", "post a gist anonymously" },
+    -- ["<leader>gSb"] = {":Gist -b", "post gist browser" },
+    -- ["<leader>gSd"] = { ":Gist -d<CR>", "delete gist" },
+    -- ["<leader>gSe"] = { ":Gist -e<CR>", "edit gist" },
+    -- ["<leader>gSl"] = { ":Gist -l<CR>", "list public gists" },
+    -- ["<leader>gSs"] = { ":Gist -ls<CR>", "list starred gists" },
+    -- ["<leader>gSm"] = { ":Gist -m<CR>", "post a gist with all open buffers" },
+    -- ["<leader>gSp"] = { ":Gist -p<CR>", "post public gist" },
+    -- ["<leader>gSP"] = { ":Gist -P<CR>", "post private gist" },
     ---------------------------------------------------------------------------
     -- Surround
+    ---------------------------------------------------------------------------
     ["<leader>s"] = { "+surround" },
     ["<leader>sa"] = { "sa", "Add surrounding" },
     ["<leader>sd"] = { "sd", "Delete surrounding" },

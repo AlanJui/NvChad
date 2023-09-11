@@ -1,6 +1,16 @@
 local overrides = require("custom.configs.overrides")
 local Util = require("custom.utils")
 
+-- Config IndentBlanklineIndent
+vim.opt.termguicolors = true
+vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])
+vim.cmd([[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]])
+vim.cmd([[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]])
+vim.cmd([[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]])
+vim.cmd([[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]])
+vim.cmd([[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]])
+vim.o.spell = true
+
 local plugins = {
   ----------------------------------------------------------------------------
   -- Core
@@ -387,13 +397,40 @@ local plugins = {
         end
       end,
     },
+    -- config = function()
+    --   require("custom.configs.gitsigns")
+    -- end,
   },
   -- Git Diff View
   {
     "sindrets/diffview.nvim",
+    lazy = false,
     config = function()
       require("custom.configs.diffview")
     end,
+  },
+  -- Git commands in nvim
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+  },
+  -- Fugitive-companion to interact with github
+  {
+    "tpope/vim-rhubarb",
+    lazy = false,
+  },
+  -- Add git related info in the signs columns and popups
+  {
+    "lewis6991/gitsigns.nvim",
+    dependicies = { "nvim-lua/plenary.nvim" },
+  },
+  -- for creating gist
+  -- Personal Access Token: ~/.gist-vim
+  -- token XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  {
+    "mattn/vim-gist",
+    lazy = false,
+    dependicies = "mattn/webapi-vim",
   },
   ----------------------------------------------------------------------------
   -- Markdown
