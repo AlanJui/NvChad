@@ -161,7 +161,8 @@ local plugins = {
     "stevearc/aerial.nvim",
     keys = {
       --stylua: ignore
-      { "<leader>o", "<CMD>AerialToggle<CR>", desc = "Open/Close the Aerial Window", },
+      { "<leader>o", "<CMD>AerialToggle<CR>", desc = "Toggle the Aerial Window", },
+      { "<leader>to", "<CMD>AerialToggle<CR>", desc = "Toggle the Aerial Window" },
       { "}", "<CMD>AerialNext<CR>", desc = "Jump forwards 1 symbol" },
       { "{", "<CMD>AerialPrev<CR>", desc = "Jump backwards 1 symbol" },
     },
@@ -174,6 +175,8 @@ local plugins = {
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     keys = {
       { "<leader>m", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Block" },
+      { "<leader>tj", "<cmd>TSJToggle<cr>", desc = "Toggle Join Block" },
+      { "<leader>ts", "<cmd>TSJToggle<cr>", desc = "Toggle Split Block" },
       { "<leader>cj", "<cmd>TSJJoin<cr>", desc = "Join Block" },
       { "<leader>cs", "<cmd>TSJSplit<cr>", desc = "Split Block" },
     },
@@ -402,9 +405,11 @@ local plugins = {
       lazy = false,
       ft = { "plantuml" },
       keys = {
-        { "<leader>pu", "<cmd>PlantumlOpen<cr>", desc = "Open PlantUML Preview" },
-        { "<leader>ps", "<cmd>PlantumlSave<cr>", desc = "Save PlantUML Preview" },
-        { "<leader>pt", "<cmd>PlantumlToggle<cr>", desc = "Toggle PlantUML Preview" },
+        { "<leader>up", "+PlantUML" },
+        { "<leader>upu", "<cmd>PlantumlOpen<cr>", desc = "Open PlantUML Preview" },
+        { "<leader>ups", "<cmd>PlantumlSave<cr>", desc = "Save PlantUML Preview" },
+        { "<leader>upt", "<cmd>PlantumlToggle<cr>", desc = "Toggle PlantUML Preview" },
+        { "<leader>tp", "<cmd>PlantumlToggle<cr>", desc = "Toggle PlantUML Preview" },
       },
     },
     -- provides support to mermaid syntax files (e.g. *.mmd, *.mermaid)
@@ -448,6 +453,13 @@ local plugins = {
       ft = { "markdown" },
       cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
       build = "cd app && yarn install",
+      keys = {
+        { "<leader>um", "+MarkDown" },
+        { "<leader>umP", "<cmd> MarkdownPreview<CR>", desc = "Open Preview" },
+        { "<leader>umc", "<cmd> MarkdownPreviewStop<CR>", desc = "Close Preview" },
+        { "<leader>ump", "<cmd> MarkdownPreviewToggle<CR>", desc = "Toggle MarkdownPreview" },
+        { "<leader>tm", "<cmd> MarkdownPreviewToggle<CR>", desc = "Toggle MarkdownPreview" },
+      },
       init = function()
         -- 以下這選項，千萬不要設定，否則會造成無法正常預覽
         -- vim.g.mkdp_browserfunc = "open"
@@ -477,9 +489,9 @@ local plugins = {
         vim.g.mkdp_markdown_css = ""
         vim.g.mkdp_highlight_css = ""
       end,
-      config = function()
-        require("core.utils").load_mappings("markdown_preview")
-      end,
+      -- config = function()
+      --   require("core.utils").load_mappings("markdown_preview")
+      -- end,
     },
     -- PlantUML
     {

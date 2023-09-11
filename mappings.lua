@@ -1,12 +1,200 @@
 local M = {}
 
-local Utils = require("custom.utils")
+-- local Utils = require("custom.utils")
 
 -- In order to disable a default keymap, use
 M.disabled = {
   n = {
     ["<leader>ma"] = "",
     ["<leader>th"] = "", -- theme switcher
+    ["<leader>ls"] = "", -- LSP signature help
+    ["<leader>pt"] = "", -- Pick hidden term
+    ["<leader>ra"] = "", -- LSP rename
+    ["<leader>n"] = "", -- Toggle line number
+    ["<leader>rn"] = "", -- Toggle relative number
+    ["<leader>tn"] = "", -- +new terminal
+  },
+}
+
+M.general = {
+  n = {
+    ---------------------------------------------------------------------------
+    -- 常用指令
+    ---------------------------------------------------------------------------
+    ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
+    [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    ["<leader>,"] = { ":Telescope buffers<CR>", "Show buffers" },
+    ["<leader>e"] = { "<CMD> NvimTreeToggle live_grep <CR>", "Toggle NvimTree" },
+    ["<leader><leader>"] = { "<c-^>", "Quick Switch 2 Buffers" }, -- Switch between 2 buffers
+    ["jk"] = { "<Esc>", "Escape" },
+    ["<C-n>"] = { "<cmd> Telescope <CR>", "Telescope" },
+    ["<C-s>"] = { ":Telescope Files <CR>", "Telescope Files" },
+    -- Move lines
+    ["<S-Down>"] = { ":m .+1<CR>gv=gv", "Move line down", opts = { nowait = true } },
+    ["<S-Up>"] = { ":m .-2<CR>gv=gv", "Move line up", opts = { nowait = true } },
+    -- Resize window using <Alt> arrow keys
+    ["<A-Down>"] = { "<cmd>resize -2<CR>" },
+    ["<A-Up>"] = { "<cmd>resize +2<CR>" },
+    ["<A-Left>"] = { "<cmd>vertical resize -2<CR>" },
+    ["<A-Right>"] = { "<cmd>vertical resize +2<CR>" },
+    -- Menu Name
+    ["gz"] = { "+surround" },
+    ["]"] = { "+next" },
+    ["["] = { "+prev" },
+    ---------------------------------------------------------------------------
+    -- Actions: 常用指令
+    ---------------------------------------------------------------------------
+    ["<leader>a"] = { "+actions" },
+    ["<leader>ah"] = { ':let @/ = ""<CR>', "remove search highlight" },
+    ["<leader>at"] = { ":set filetype=htmldjango<CR>", "set file type to django template" },
+    ["<leader>aT"] = { ":set filetype=html<CR>", "set file type to HTML" },
+    ["<leader>al"] = { ":set wrap!<CR>", "on/off line wrap" },
+    -- line numbers
+    ["<leader>an"] = { ":set nonumber!<CR>", "on/off line-numbers" },
+    ["<leader>aN"] = { ":set norelativenumber!<CR>", "on/off relative line-numbers" },
+    ["<leader>tn"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+    ["<leader>tr"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+    ---------------------------------------------------------------------------
+    -- Buffers
+    ---------------------------------------------------------------------------
+    ["<leader>b"] = { "+buffer" },
+    ["<leader>bx"] = { "<CMD>bdelete<CR>", "Close Buffer" },
+    ["<leader>bX"] = { "<CMD>bdelete!<CR>", "Close Buffer with force" },
+    ["<leader>bl"] = { "<CMD>ls<CR>", "List Buffers" },
+    ---------------------------------------------------------------------------
+    -- Coding
+    ---------------------------------------------------------------------------
+    ["<leader>c"] = { "+code" },
+    -- LSP
+    ["<leader>ca"] = {
+      "<CMD> lua vim.lsp.buf.range_code_action()<CR>",
+      "Do Range CodeAction",
+    },
+    ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename code" },
+    ["<leader>cs"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
+    -- Diagnostics
+    ["<leader>cdd"] = { "<cmd> lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "Show line diagnostics" },
+    ["<leader>cdp"] = { "<cmd> lua vim.lsp.diagnostic.goto_prev()<CR>", "Go to previous diagnostic" },
+    ["<leader>cdn"] = { "<cmd> lua vim.lsp.diagnostic.goto_next()<CR>", "Go to next diagnostic" },
+    ["<leader>cdl"] = { "<cmd> lua vim.lsp.diagnostic.set_loclist()<CR>", "Set loclist" },
+    -- Goto
+    ["<leader>cgd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
+    ["<leader>cgD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
+    ["<leader>cgr"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
+    ["<leader>cgt"] = {
+      "<cmd>lua vim.lsp.buf.type_definition()<CR>",
+      "Go to type definition",
+    },
+    ["<leader>cgi"] = {
+      "<cmd>lua vim.lsp.buf.implementation()<CR>",
+      "Go to Implementation",
+    },
+    ---------------------------------------------------------------------------
+    -- Debuggging
+    ---------------------------------------------------------------------------
+    ["<leader>d"] = { "+debug" },
+    ---------------------------------------------------------------------------
+    -- Finding
+    ---------------------------------------------------------------------------
+    ["<leader>f"] = { "+finding" },
+    ---------------------------------------------------------------------------
+    -- Git
+    ---------------------------------------------------------------------------
+    ["<leader>g"] = { "+git" },
+    ---------------------------------------------------------------------------
+    -- Surround
+    ["<leader>s"] = { "+surround" },
+    ["<leader>sa"] = { "sa", "Add surrounding" },
+    ["<leader>sd"] = { "sd", "Delete surrounding" },
+    ["<leader>sr"] = { "sr", "Replace surrounding" },
+    ["<leader>sh"] = { "sh", "Highlight surrounding" },
+    ["<leader>sf"] = { "sf", "Find surrounding (to the right)" },
+    ["<leader>sF"] = { "sf", "Find surrounding (to the left)" },
+    ["<leader>sn"] = { "sn", "Update `n_lines`" },
+    -- ["<leader>["] = { "l", "Suffix to search with `prev` method" },
+    -- ["<leader>]"] = { "n", "Suffix to search with `next` method" },
+    ---------------------------------------------------------------------------
+    -- Toggle/Terminal
+    ---------------------------------------------------------------------------
+    ["<leader>t"] = { "+toggle/terminal" },
+    ---------------------------------------------------------------------------
+    -- Utilities
+    ---------------------------------------------------------------------------
+    ["<leader>u"] = { "+utilities" },
+    -- Toggle Tab Characters
+    ["<leader>uv"] = {
+      "<cmd>lua _G.toggle_tab_chars()<CR>",
+      "啟用／關閉：顯示 Tab 字符",
+    },
+    ---------------------------------------------------------------------------
+    -- Windows/Workspace/WhichKey
+    ---------------------------------------------------------------------------
+    -- Window
+    ["<leader>w"] = { "+windows/workspace" },
+    -- split window
+    ["<leader>w-"] = { "<cmd>split<cr>", "Horizontal Split" },
+    ["<leader>w_"] = { "<cmd>vsplit<cr>", "Vertical Split" },
+    ["<leader>w|"] = { "<cmd>vsplit<cr>", "Vertical Split" },
+    -- Move to window using the <ctrl> hjkl keys
+    ["<leader>wf"] = { "Move Focus" },
+    ["<leader>wfh"] = { "<C-w>h", "Move to Left Window" },
+    ["<leader>wfj"] = { "<C-w>j", "Move to Down Window" },
+    ["<leader>wfk"] = { "<C-w>k", "Move to Up Window" },
+    ["<leader>wfl"] = { "<C-w>l", "Move to Right Window" },
+    -- Resize window using <Alt> arrow keys
+    ["<leader>ws"] = { "Resize Window" },
+    ["<leader>ws<Up>"] = { "<cmd>resize -2<CR>", "Up Side" },
+    ["<leader>ws<Down>"] = { "<cmd>resize +2<CR>", "Down Side" },
+    ["<leader>ws<Left>"] = { "<cmd>vertical resize +2<CR>", "Left Side" },
+    ["<leader>ws<Right>"] = { "<cmd>vertical resize -2<CR>", "Right Side" },
+    -- Zoom-in/out window
+    ["<leader>wi"] = { "<CMD>tabnew %<CR>", "Zoom-in" },
+    ["<leader>wo"] = { "<CMD>tabclose<CR>", "Zoom-out" },
+    ["<leader>wc"] = { "<CMD>close<CR>", "Close window" },
+    ---------------------------------------------------------------------------
+    -- Diagnostics/Quickfix
+    ---------------------------------------------------------------------------
+    ["<leader>x"] = { "+diagnostics/quickfix" },
+  },
+
+  i = {
+    ["kj"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
+    ["<S-Down>"] = { "<Esc>:m .+1<CR>", "Move line down", opts = { nowait = true } },
+    ["<S-Up>"] = { "<Esc>:m .-2<CR>", "Move line up", opts = { nowait = true } },
+  },
+
+  v = {
+    ["<"] = { "<gv", "Unindent", opts = { nowait = true } },
+    [">"] = { ">gv", "Indent", opts = { nowait = true } },
+    ["J"] = { ":m '>+1<CR>gv=gv", "Move line down", opts = { nowait = true } },
+    ["K"] = { ":m '<-2<CR>gv=gv", "Move line up", opts = { nowait = true } },
+    ["<S-Down>"] = { ":m '>+1<CR>gv=gv", "Move line down", opts = { nowait = true } },
+    ["<S-Up>"] = { ":m '<-2<CR>gv=gv", "Move line up", opts = { nowait = true } },
+  },
+
+  t = {
+    -- toggle in terminal mode
+    ["<leader>t"] = { "+terminal" },
+    ["<leader>ti"] = {
+      function()
+        require("nvterm.terminal").toggle("float")
+      end,
+      "Toggle floating term",
+    },
+
+    ["<leader>th"] = {
+      function()
+        require("nvterm.terminal").toggle("horizontal")
+      end,
+      "Toggle horizontal term",
+    },
+
+    ["<leader>tv"] = {
+      function()
+        require("nvterm.terminal").toggle("vertical")
+      end,
+      "Toggle vertical term",
+    },
   },
 }
 
@@ -223,12 +411,6 @@ M.nvterm = {
       end,
       "Toggle floating term",
     },
-    ["<leader>tt"] = {
-      function()
-        require("nvterm.terminal").toggle("horizontal")
-      end,
-      "Toggle horizontal term",
-    },
     ["<leader>th"] = {
       function()
         require("nvterm.terminal").toggle("horizontal")
@@ -242,14 +424,14 @@ M.nvterm = {
       "Toggle vertical term",
     },
     -- new
-    ["<leader>tn"] = { "+new terminal" },
-    ["<leader>tnh"] = {
+    ["<leader>tN"] = { "+new terminal" },
+    ["<leader>tNh"] = {
       function()
         require("nvterm.terminal").new("horizontal")
       end,
       "New horizontal term",
     },
-    ["<leader>tnv"] = {
+    ["<leader>tNv"] = {
       function()
         require("nvterm.terminal").new("vertical")
       end,
