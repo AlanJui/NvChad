@@ -27,7 +27,6 @@ M.general = {
     ["<leader>,"] = { ":Telescope buffers<CR>", "Show buffers" },
     ["<leader>e"] = { "<CMD> NvimTreeToggle live_grep <CR>", "Toggle NvimTree" },
     ["<leader><leader>"] = { "<c-^>", "Quick Switch 2 Buffers" }, -- Switch between 2 buffers
-    ["jk"] = { "<Esc>", "Escape" },
     ["<C-n>"] = { "<cmd> Telescope <CR>", "Telescope" },
     ["<C-s>"] = { ":Telescope Files <CR>", "Telescope Files" },
     -- Move lines
@@ -257,6 +256,7 @@ M.general = {
   },
 
   i = {
+    ["jj"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
     ["kj"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
     ["<S-Down>"] = { "<Esc>:m .+1<CR>", "Move line down", opts = { nowait = true } },
     ["<S-Up>"] = { "<Esc>:m .-2<CR>", "Move line up", opts = { nowait = true } },
