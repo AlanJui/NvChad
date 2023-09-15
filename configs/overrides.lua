@@ -49,7 +49,7 @@ M.mason = {
     "pyright", -- LSP Server
     "debugpy", -- Debugger
     "black", -- Formatter
-    "mypy", -- Type checker
+    -- "mypy", -- Type checker
     "ruff", -- Linter
   },
 }

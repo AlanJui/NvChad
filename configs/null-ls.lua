@@ -5,7 +5,13 @@ local diagnostics = null_ls.builtins.diagnostics
 local sources = {
   -- Python
   formatting.black,
-  diagnostics.mypy,
+  -- diagnostics.mypy,
+  -- diagnostics.mypy.with({
+  --   extra_args = { "--config-file", "mypy.ini" },
+  -- }),
+  diagnostics.mypy.with({
+    extra_args = { "--config-file", "pyproject.toml" },
+  }),
   diagnostics.ruff,
 
   -- webdev stuff

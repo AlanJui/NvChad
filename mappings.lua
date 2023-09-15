@@ -199,6 +199,26 @@ M.general = {
     -- ["<leader>gSp"] = { ":Gist -p<CR>", "post public gist" },
     -- ["<leader>gSP"] = { ":Gist -P<CR>", "post private gist" },
     ---------------------------------------------------------------------------
+    -- Run
+    ---------------------------------------------------------------------------
+    ["<leader>r"] = { "+Run" },
+    ["<leader>rd"] = {
+      "<cmd>2TermExec cmd='poetry run python manage.py runserver' go_back=0<cr>",
+      "Django RunServer",
+    },
+    ["<leader>rs"] = {
+      "<cmd>2TermExec cmd='poetry run python manage.py collectstatic'<cr>",
+      "Django CollectStatic",
+    },
+    ["<leader>rm"] = {
+      "<cmd>2TermExec cmd='poetry run python manage.py migrate'<cr>",
+      "Django Migrate",
+    },
+    ["<leader>rg"] = {
+      "<cmd>2TermExec cmd='git status'<cr>",
+      "Git Status",
+    },
+    ---------------------------------------------------------------------------
     -- Surround
     ---------------------------------------------------------------------------
     ["<leader>s"] = { "+surround" },
@@ -293,6 +313,10 @@ M.general = {
         require("nvterm.terminal").toggle("vertical")
       end,
       "Toggle vertical term",
+    },
+    ["<leader><leader>"] = {
+      "<cmd>wincmd k<cr>",
+      "Back to the top",
     },
   },
 }

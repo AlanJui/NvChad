@@ -59,7 +59,7 @@ vim.api.nvim_set_keymap("n", "<leader>v", ":ToggleTabDisplay<CR>", { noremap = t
 
 -------------------------------------------------
 -- 針對 Markdown 文件的設置
--------------------------------------------------
+-------------------------------------------------:
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
@@ -68,3 +68,16 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.softtabstop = 8
   end,
 })
+
+-------------------------------------------------
+local home_dir = os.getenv("HOME")
+-------------------------------------------------
+vim.g.loaded_python2_provider = 0
+-- vim.g.loaded_python3_provider = 1
+-- vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/3.10.6/bin/python3.10"
+-- vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/3.10.6/envs/venv-3.10.6/bin/python3.10"
+vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/3.10.6/envs/venv-3.10.6/bin/python"
+
+vim.g.node_host_prog = home_dir .. "/n/lib/node_modules/neovim/bin/cli.js"
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
