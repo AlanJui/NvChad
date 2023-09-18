@@ -41,6 +41,11 @@ M.general = {
     ["gz"] = { "+surround" },
     ["]"] = { "+next" },
     ["["] = { "+prev" },
+    -- Window Movement
+    ["<C-h>"] = { "<C-w>h", "Move to Left Window" },
+    ["<C-j>"] = { "<C-w>j", "Move to Down Window" },
+    ["<C-k>"] = { "<C-w>k", "Move to Up Window" },
+    ["<C-l>"] = { "<C-w>l", "Move to Right Window" },
     ---------------------------------------------------------------------------
     -- Actions: 常用指令
     ---------------------------------------------------------------------------
@@ -91,7 +96,7 @@ M.general = {
     },
     ---------------------------------------------------------------------------
     -- Debuggging
-    ---------------------------------------------------------------------------
+    ---------------------------------------------------------------------------^
     ["<leader>d"] = { "+debug" },
     ---------------------------------------------------------------------------
     -- Finding
@@ -211,12 +216,22 @@ M.general = {
       "Django CollectStatic",
     },
     ["<leader>rm"] = {
-      "<cmd>2TermExec cmd='poetry run python manage.py migrate'<cr>",
+      "<cmd>TermExec cmd='poetry run python manage.py migrate'<cr>",
       "Django Migrate",
     },
     ["<leader>rg"] = {
-      "<cmd>2TermExec cmd='git status'<cr>",
+      "<cmd>TermExec cmd='git status'<cr>",
       "Git Status",
+    },
+    ["<leader>rp"] = {
+      "<cmd>TermExec cmd='poetry run python %' go_back=0<cr>",
+      "Run Python Code",
+    },
+    ["<leader>ry"] = {
+      function()
+        require("yabs"):run_task("run")
+      end,
+      "YABS Run Python Task",
     },
     ---------------------------------------------------------------------------
     -- Surround
@@ -273,6 +288,7 @@ M.general = {
     -- Diagnostics/Quickfix
     ---------------------------------------------------------------------------
     ["<leader>x"] = { "+diagnostics/quickfix" },
+    ["<leader>xt"] = { "+todo" },
   },
 
   i = {
@@ -585,7 +601,7 @@ M.trouble = {
   plugin = true,
   n = {
     -- Trouble
-    ["<leader>xt"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
+    ["<leader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
     ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List (Trouble)" },
     ["<leader>xr"] = {

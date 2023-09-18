@@ -80,6 +80,16 @@ local plugins = {
   ----------------------------------------------------------------------------
   {
     "williamboman/mason.nvim",
+    cmd = {
+      "Mason",
+      "MasonInstall",
+      "MasonUninstall",
+      "MasonUninstallAll",
+      "MasonUpdate",
+      "MasonUpdateAll",
+      "MasonSearch",
+      "MasonSearchAll",
+    },
     opts = {
       ensure_installed = {
         "eslint-lsp",
@@ -328,9 +338,15 @@ local plugins = {
   -- Build Code
   {
     "pianocomposer321/yabs.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- "akinsho/nvim-toggleterm.lua",
+      -- "akinsho/nvim-bufferline.lua",
+    },
+    lazy = false,
     config = function()
       require("custom.configs.yabs")
-      require("core.utils").load_mappings("yabs")
+      -- require("core.utils").load_mappings("yabs")
     end,
   },
   ----------------------------------------------------------------------------
@@ -770,9 +786,9 @@ local plugins = {
         end,
         desc = "Previous todo comment",
       },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
-      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>sT", "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
+      { "<leader>xtt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+      { "<leader>xtT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+      { "<leader>fx", "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
     },
   },
 }
