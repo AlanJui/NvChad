@@ -289,6 +289,35 @@ M.general = {
     ---------------------------------------------------------------------------
     ["<leader>x"] = { "+diagnostics/quickfix" },
     ["<leader>xt"] = { "+todo" },
+    ["<leader>xx"] = { "<cmd>TroubleToggle<cr>", "Document Diagnostics (Trouble)" },
+    ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
+    ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List (Trouble)" },
+    ["<leader>xr"] = {
+      function()
+        require("trouble").open("lsp_references")
+      end,
+      "LSP Reference (Trouble)",
+    },
+    ["[q"] = {
+      function()
+        if require("trouble").is_open() then
+          require("trouble").previous({ skip_groups = true, jump = true })
+        else
+          vim.cmd.cprev()
+        end
+      end,
+      "Previous trouble/quickfix item",
+    },
+    ["]q"] = {
+      function()
+        if require("trouble").is_open() then
+          require("trouble").next({ skip_groups = true, jump = true })
+        else
+          vim.cmd.cnext()
+        end
+      end,
+      "Next trouble/quickfix item",
+    },
   },
 
   i = {
@@ -601,7 +630,8 @@ M.trouble = {
   plugin = true,
   n = {
     -- Trouble
-    ["<leader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
+    -- ["<leader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
+    ["<leader>xx"] = { "<cmd>TroubleToggle<cr>", "Document Diagnostics (Trouble)" },
     ["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List (Trouble)" },
     ["<leader>xr"] = {

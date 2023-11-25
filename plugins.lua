@@ -71,9 +71,12 @@ local plugins = {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
-    config = function()
-      require("core.utils").load_mappings("trouble")
-    end,
+    keys = {
+      { "<leader>tt", "<cmd>TroubleToggle<cr>", desc = "Toggle Trouble" },
+    },
+    -- config = function()
+    --   require("core.utils").load_mappings("trouble")
+    -- end,
   },
   ----------------------------------------------------------------------------
   -- LSP
@@ -344,6 +347,10 @@ local plugins = {
       -- "akinsho/nvim-bufferline.lua",
     },
     lazy = false,
+    keys = {
+      { "<leader>y", "+YABS" },
+      { "<leader>yt", "<cmd>Telescope yabs tasks<cr>", desc = "Execute Task from Selection" },
+    },
     config = function()
       require("custom.configs.yabs")
       -- require("core.utils").load_mappings("yabs")

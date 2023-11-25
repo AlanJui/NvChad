@@ -16,6 +16,7 @@ local custom_opts = {
     "live_grep_args",
     "conventional_commits",
     "lazy",
+    "yabs",
   },
 }
 
