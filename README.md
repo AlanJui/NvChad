@@ -1,26 +1,42 @@
 # 安裝指引
 
-## 安裝 NvChad
+## 將 NvChad 當作預設的 Neovim
+
+### 安裝 NvChad
 
 ```
-git clone https://github.com/NvChad/NvChad ~/.config/nvchad --depth 1 && nvim
+git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 ```
 
-## 安裝個人 Neovim Configuration
+### 安裝個人 Neovim Configuration
+
+```
+git clone git@github.com:AlanJui/NvChad.git ~/.config/nvim/lua/custom
+```
+
+
+## 令 NvChad 擁有獨立的 Neovim 作業環境
+
+### 安裝 NvChad
+
+```
+git clone https://github.com/NvChad/NvChad ~/.config/nvchad --depth 1 
+```
+
+### 安裝個人 Neovim Configuration
 
 ```
 git clone git@github.com:AlanJui/NvChad.git ~/.config/nvchad/lua/custom
 ```
 
-## 設定執行檔
+### 設定執行檔
 
 ```sh
-mkdir -p ~/.local/bin
-touch ~/.local/bin/nvchad
-chmod u+x ~/.local/bin/nvchad
+sudo touch /usr/local/bin/nvchad
+sudo chmod 775 /usr/local/bin/nvchad
 ```
 
-`~/.local/bin/nvchad`
+`sudo nano /usr/local/bin/nvchad`
 
 ```sh
 #!/bin/sh
