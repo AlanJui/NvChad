@@ -17,6 +17,34 @@ M.disabled = {
   },
 }
 
+M.dap = {
+  plugin = true,
+  n = {
+    ["<leader>db"] = { "<cmd> DapToggleBreakpoing <CR>", "Toggle breakpoint" },
+    ["<leader>dc"] = { "<cmd> DapContinue <CR>", "Continue" },
+    ["<leader>dr"] = { "<cmd> DapRestart <CR>", "Restart" },
+    ["<leader>do"] = { "<cmd> DapStepOut <CR>", "Step out" },
+    ["<leader>di"] = { "<cmd> DapStepInto <CR>", "Step into" },
+    ["<leader>dn"] = { "<cmd> DapNext <CR>", "Next" },
+    ["<leader>dp"] = { "<cmd> DapPause <CR>", "Pause" },
+    ["<leader>du"] = { "<cmd> DapUp <CR>", "Up" },
+    ["<leader>dd"] = { "<cmd> DapDown <CR>", "Down" },
+    ["<leader>dl"] = { "<cmd> DapListBreakpoints <CR>", "List breakpoints" },
+    ["<leader>dI"] = { "<cmd> DapUI <CR>", "Dap UI" },
+  },
+}
+
+M.dap_python = {
+  plugin = true,
+  n = {
+    ["<leader>dpr"] = {
+      function()
+        require("dap-python").test_method()
+      end,
+    },
+  },
+}
+
 M.general = {
   n = {
     ---------------------------------------------------------------------------
@@ -137,7 +165,7 @@ M.general = {
     },
     ["<leader>gsB"] = {
       function()
-        require("gitsigns").blame_line({ full = true })
+        require("gitsigns").blame_line { full = true }
       end,
       desc = "View full Git blame",
     },
@@ -229,7 +257,7 @@ M.general = {
     },
     ["<leader>ry"] = {
       function()
-        require("yabs"):run_task("run")
+        require("yabs"):run_task "run"
       end,
       "YABS Run Python Task",
     },
@@ -294,14 +322,14 @@ M.general = {
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List (Trouble)" },
     ["<leader>xr"] = {
       function()
-        require("trouble").open("lsp_references")
+        require("trouble").open "lsp_references"
       end,
       "LSP Reference (Trouble)",
     },
     ["[q"] = {
       function()
         if require("trouble").is_open() then
-          require("trouble").previous({ skip_groups = true, jump = true })
+          require("trouble").previous { skip_groups = true, jump = true }
         else
           vim.cmd.cprev()
         end
@@ -311,7 +339,7 @@ M.general = {
     ["]q"] = {
       function()
         if require("trouble").is_open() then
-          require("trouble").next({ skip_groups = true, jump = true })
+          require("trouble").next { skip_groups = true, jump = true }
         else
           vim.cmd.cnext()
         end
@@ -341,21 +369,21 @@ M.general = {
     ["<leader>t"] = { "+terminal" },
     ["<leader>ti"] = {
       function()
-        require("nvterm.terminal").toggle("float")
+        require("nvterm.terminal").toggle "float"
       end,
       "Toggle floating term",
     },
 
     ["<leader>th"] = {
       function()
-        require("nvterm.terminal").toggle("horizontal")
+        require("nvterm.terminal").toggle "horizontal"
       end,
       "Toggle horizontal term",
     },
 
     ["<leader>tv"] = {
       function()
-        require("nvterm.terminal").toggle("vertical")
+        require("nvterm.terminal").toggle "vertical"
       end,
       "Toggle vertical term",
     },
@@ -516,7 +544,7 @@ M.gitsigns = {
     },
     ["<leader>gL"] = {
       function()
-        require("gitsigns").blame_line({ full = true })
+        require("gitsigns").blame_line { full = true }
       end,
       "View full Git blame",
     },
@@ -575,19 +603,19 @@ M.nvterm = {
     -- toggle in normal mode
     ["<leader>ti"] = {
       function()
-        require("nvterm.terminal").toggle("float")
+        require("nvterm.terminal").toggle "float"
       end,
       "Toggle floating term",
     },
     ["<leader>th"] = {
       function()
-        require("nvterm.terminal").toggle("horizontal")
+        require("nvterm.terminal").toggle "horizontal"
       end,
       "Toggle horizontal term",
     },
     ["<leader>tv"] = {
       function()
-        require("nvterm.terminal").toggle("vertical")
+        require("nvterm.terminal").toggle "vertical"
       end,
       "Toggle vertical term",
     },
@@ -595,13 +623,13 @@ M.nvterm = {
     ["<leader>tN"] = { "+new terminal" },
     ["<leader>tNh"] = {
       function()
-        require("nvterm.terminal").new("horizontal")
+        require("nvterm.terminal").new "horizontal"
       end,
       "New horizontal term",
     },
     ["<leader>tNv"] = {
       function()
-        require("nvterm.terminal").new("vertical")
+        require("nvterm.terminal").new "vertical"
       end,
       "New vertical term",
     },
@@ -636,14 +664,14 @@ M.trouble = {
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List (Trouble)" },
     ["<leader>xr"] = {
       function()
-        require("trouble").open("lsp_references")
+        require("trouble").open "lsp_references"
       end,
       "LSP Reference (Trouble)",
     },
     ["[q"] = {
       function()
         if require("trouble").is_open() then
-          require("trouble").previous({ skip_groups = true, jump = true })
+          require("trouble").previous { skip_groups = true, jump = true }
         else
           vim.cmd.cprev()
         end
@@ -653,7 +681,7 @@ M.trouble = {
     ["]q"] = {
       function()
         if require("trouble").is_open() then
-          require("trouble").next({ skip_groups = true, jump = true })
+          require("trouble").next { skip_groups = true, jump = true }
         else
           vim.cmd.cnext()
         end

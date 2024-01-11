@@ -1,23 +1,23 @@
-local overrides = require("custom.configs.overrides")
-local Util = require("custom.utils")
-local cmp = require("cmp")
-local luasnip = require("luasnip")
+local overrides = require "custom.configs.overrides"
+local Util = require "custom.utils"
+local cmp = require "cmp"
+local luasnip = require "luasnip"
 
 local has_words_before = function()
   ---@diagnostic disable-next-line: deprecated
   unpack = unpack or table.unpack -- luacheck: globals unpack (compatibility with Lua 5.1)
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
 -- Config IndentBlanklineIndent
 vim.opt.termguicolors = true
-vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]])
-vim.cmd([[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]])
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 vim.o.spell = true
 
 local plugins = {
@@ -47,23 +47,23 @@ local plugins = {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
         config = function()
-          require("telescope").load_extension("fzf")
+          require("telescope").load_extension "fzf"
         end,
       },
       {
         "nvim-telescope/telescope-frecency.nvim",
         dependencies = { "kkharji/sqlite.lua" },
         config = function()
-          require("telescope").load_extension("frecency")
+          require("telescope").load_extension "frecency"
         end,
       },
     },
     cmd = "Telescope",
     init = function()
-      require("core.utils").load_mappings("telescope")
+      require("core.utils").load_mappings "telescope"
     end,
     config = function()
-      require("custom.configs.telescope")
+      require "custom.configs.telescope"
     end,
   },
   {
@@ -99,23 +99,28 @@ local plugins = {
         "js-debug-adapter",
         "prettier",
         "typescript-language-server",
-        "lua_ls",
+        "lua-language-server",
         "pyright",
+        "mypy",
+        "ruff",
+        "black",
+        "debugpy",
       },
     },
   },
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("plugins.configs.lspconfig")
-      require("custom.configs.lspconfig")
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
     end,
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "VeryLazy",
+    ft = { "python" },
     opts = function()
-      return require("custom.configs.null-ls")
+      return require "custom.configs.null-ls"
     end,
   },
   -- {
@@ -168,10 +173,10 @@ local plugins = {
         ["<C-y>"] = cmp.mapping.complete(),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({
+        ["<CR>"] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
-        }),
+        },
         -- Select next item
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -223,7 +228,7 @@ local plugins = {
     version = false,
     lazy = false,
     config = function()
-      require("mini.surround").setup({
+      require("mini.surround").setup {
         add = "sa", -- Add surrounding in Normal and Visual modes
         delete = "sd", -- Delete surrounding
         find = "sf", -- Find surrounding (to the right)
@@ -234,7 +239,7 @@ local plugins = {
 
         suffix_last = "l", -- Suffix to search with "prev" method
         suffix_next = "n", -- Suffix to search with "next" method       mappings = {
-      })
+      }
     end,
   },
   -- A code outline window for skimming and quick navigation
@@ -262,8 +267,8 @@ local plugins = {
       { "<leader>cs", "<cmd>TSJSplit<cr>", desc = "Split Block" },
     },
     config = function()
-      require("treesj").setup({})
-      require("core.utils").load_mappings("treesj")
+      require("treesj").setup {}
+      require("core.utils").load_mappings "treesj"
     end,
   },
   -- active indent guide and indent text objects
@@ -300,12 +305,12 @@ local plugins = {
   {
     "NvChad/nvterm",
     init = function()
-      require("core.utils").load_mappings("nvterm")
+      require("core.utils").load_mappings "nvterm"
     end,
     config = function(_, opts)
-      require("base46.term")
+      require "base46.term"
       require("nvterm").setup(opts)
-      require("core.utils").load_mappings("nvterm")
+      require("core.utils").load_mappings "nvterm"
     end,
   },
   -- ToggleTerm
@@ -335,7 +340,7 @@ local plugins = {
       auto_scroll = true, -- automatically scroll to the bottom on terminal output
     },
     config = function()
-      require("custom.configs.toggleterm")
+      require "custom.configs.toggleterm"
     end,
   },
   -- Build Code
@@ -352,7 +357,7 @@ local plugins = {
       { "<leader>yt", "<cmd>Telescope yabs tasks<cr>", desc = "Execute Task from Selection" },
     },
     config = function()
-      require("custom.configs.yabs")
+      require "custom.configs.yabs"
       -- require("core.utils").load_mappings("yabs")
     end,
   },
@@ -373,15 +378,15 @@ local plugins = {
         {
           "luukvbaal/statuscol.nvim",
           config = function()
-            local builtin = require("statuscol.builtin")
-            require("statuscol").setup({
+            local builtin = require "statuscol.builtin"
+            require("statuscol").setup {
               relculright = true,
               segments = {
                 { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
                 { text = { "%s" }, click = "v:lua.ScSa" },
                 { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
               },
-            })
+            }
           end,
         },
       },
@@ -455,7 +460,7 @@ local plugins = {
       disable_commit_confirmation = true,
     },
     config = function()
-      require("custom.configs.neogit")
+      require "custom.configs.neogit"
     end,
   },
   {
@@ -487,7 +492,7 @@ local plugins = {
     "sindrets/diffview.nvim",
     lazy = false,
     config = function()
-      require("custom.configs.diffview")
+      require "custom.configs.diffview"
     end,
   },
   -- Git commands in nvim
@@ -627,12 +632,12 @@ local plugins = {
       },
       cmd = { "PlantumlOpen", "PlantumlSave", "PlantumlToggle" },
       config = function()
-        vim.g.my_jar_path = vim.fn.stdpath("data") .. "/lazy/plantuml-previewer.vim/lib/plantuml.jar"
-        vim.cmd([[
+        vim.g.my_jar_path = vim.fn.stdpath "data" .. "/lazy/plantuml-previewer.vim/lib/plantuml.jar"
+        vim.cmd [[
           autocmd FileType plantuml let g:plantuml_previewer#plantuml_jar_path = g:my_jar_path
           let g:plantuml_previewer#save_format = "png"
           let g:plantuml_previewer#debug_mode = 1
-        ]])
+        ]]
       end,
     },
   },
@@ -655,11 +660,11 @@ local plugins = {
     },
     config = function()
       -- Setup DAP Environment
-      require("custom.configs.dap")
+      require "custom.configs.dap"
       -- Setup DAP for JS/TS
       require("custom.configs.dap.adapters.js").setup()
       -- Load keymappings for DAP
-      require("core.utils").load_mappings("dap")
+      require("core.utils").load_mappings "dap"
     end,
   },
   {
@@ -667,12 +672,12 @@ local plugins = {
     event = "VeryLazy",
     dependencies = "mfussenegger/nvim-dap",
     config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
+      local dap = require "dap"
+      local dapui = require "dapui"
       require("dapui").setup()
       dap.listeners.after.event_initialized["dapui_config"] = function()
         -- dapui.open()
-        dapui.open({ reset = true })
+        dapui.open { reset = true }
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
         dapui.close()
@@ -689,7 +694,7 @@ local plugins = {
       {
         "<leader>daL",
         function()
-          require("osv").launch({ port = 8086 })
+          require("osv").launch { port = 8086 }
         end,
         desc = "Start Lua Debugger Server",
       },
@@ -702,7 +707,7 @@ local plugins = {
       },
     },
     config = function()
-      require("custom.configs.dap.adapters.nlua")
+      require "custom.configs.dap.adapters.nlua"
     end,
   },
   -- DAP for Python
@@ -718,6 +723,7 @@ local plugins = {
         "<leader>daP",
         function()
           require("dap-python").test_method()
+          require("core.utils").load_mappings "dap_python"
         end,
         desc = "Start Python Debugger Server",
       },
@@ -730,7 +736,7 @@ local plugins = {
       },
     },
     config = function(_, _)
-      require("custom.configs.dap.adapters.python")
+      require "custom.configs.dap.adapters.python"
     end,
   },
   -- DAP for Node.js (nvim-dap adapter for vscode-js-debug)
@@ -757,7 +763,7 @@ local plugins = {
       {
         "<leader>uv",
         function()
-          vim.cmd("Vifm")
+          vim.cmd "Vifm"
         end,
         desc = "Open Vifm",
       },
