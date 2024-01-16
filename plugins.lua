@@ -100,7 +100,7 @@ local plugins = {
     config = function()
       -- require "plugins.configs.lspconfig"
       -- require "custom.configs.lspconfig"
-      require "config.lspconfig"
+      require "custom.configs.lspconfig"
     end,
   },
   {
@@ -121,12 +121,20 @@ local plugins = {
       vim.g.rustfmt_autosave = 1
     end,
   },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   event = "VeryLazy",
+  --   ft = { "python" },
+  --   opts = function()
+  --     return require "custom.configs.null-ls"
+  --   end,
+  -- },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "VeryLazy",
-    ft = { "python" },
+    "nvimtools/none-ls.nvim", -- configure formatters & linters
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
     opts = function()
-      return require "custom.configs.null-ls"
+      return require "custom.configs.none-ls"
     end,
   },
   -- {

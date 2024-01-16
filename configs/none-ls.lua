@@ -3,27 +3,23 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
 local sources = {
-  -- Lua
-  formatting.stylua,
   -- Python
   formatting.black,
-  formatting.isort,
-  diagnostics.mypy,
-  diagnostics.pylint,
   diagnostics.ruff,
+  diagnostics.mypy,
+
   -- webdev stuff
   -- formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
-  -- diagnostics.eslint,
-  diagnostics.eslint_d.with { -- js/ts linter
-    condition = function(utils)
-      return utils.root_has_file { ".eslintrc.js", ".eslintrc.cjs" } -- only enable if root has .eslintrc.js or .eslintrc.cjs
-    end,
-  },
+  diagnostics.eslint,
   formatting.prettier.with {
     filetypes = { "html", "markdown", "css" },
   }, -- prettier works only on these filetypes
+
+  -- Lua
+  formatting.stylua,
+
   -- cpp
-  -- formatting.clang_format,
+  formatting.clang_format,
 }
 
 ------------------------------------------------------------------------------

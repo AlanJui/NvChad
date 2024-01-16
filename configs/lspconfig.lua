@@ -16,16 +16,16 @@ for _, lsp in ipairs(servers) do
 end
 
 -- Lua LSP Server
-lsp_config.lua_ls.setup(require "configs.lsp.lua_ls")
+lsp_config.lua_ls.setup(require "custom.configs.lsp.lua_ls")
 
 -- Python LSP Server
-lsp_config.pyright.setup(require "configs.lsp.pyright")
+lsp_config.pyright.setup(require "custom.configs.lsp.pyright")
 
 -- TypeScript LSP Server
-lsp_config.tsserver.setup(require "configs.lsp.tsserver")
+lsp_config.tsserver.setup(require "custom.configs.lsp.tsserver")
 
 -- Rust LSP Server
-lsp_config.rust_analyzer.setup(require "configs.lsp.rust_analyzer")
+lsp_config.rust_analyzer.setup(require "custom.configs.lsp.rust-tools")
 
 -- lsp_config.lua_ls.setup {
 --   on_attach = on_attach,
