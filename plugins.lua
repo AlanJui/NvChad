@@ -93,26 +93,32 @@ local plugins = {
       "MasonSearch",
       "MasonSearchAll",
     },
-    opts = {
-      ensure_installed = {
-        "eslint-lsp",
-        "js-debug-adapter",
-        "prettier",
-        "typescript-language-server",
-        "lua-language-server",
-        "pyright",
-        "mypy",
-        "ruff",
-        "black",
-        "debugpy",
-      },
-    },
+    opts = overrides.mason.ensure_installed,
   },
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
+      -- require "plugins.configs.lspconfig"
+      -- require "custom.configs.lspconfig"
+      require "config.lspconfig"
+    end,
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    dependencies = "neovim/nvim-lspconfig",
+    -- opts = function()
+    --   return require "custom.configs.lsp.rust-tools"
+    -- end,
+    -- config = function(_, opts)
+    --   require("rust-tools").setup(opts)
+    -- end,
+  },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
     end,
   },
   {
@@ -558,10 +564,10 @@ local plugins = {
       end,
     },
     -- Live server
-    {
-      "turbio/bracey.vim",
-      build = "npm install --prefix server",
-    },
+    -- {
+    --   "turbio/bracey.vim",
+    --   build = "npm install --prefix server",
+    -- },
     -- Open URI with your favorite browser from Neovim
     {
       "tyru/open-browser.vim",
@@ -657,7 +663,17 @@ local plugins = {
         -- version = "1.x",
         build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
       },
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        lazy = false,
+        config = function(_, opts)
+          require("nvim-dap-virtual-text").setup()
+        end,
+      },
     },
+    init = function()
+      require("core.utils").load_mappings "dap"
+    end,
     config = function()
       -- Setup DAP Environment
       require "custom.configs.dap"

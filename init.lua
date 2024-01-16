@@ -1,5 +1,5 @@
 -- vscode format i.e json files
-vim.g.vscode_snippets_path = vim.fn.stdpath("config") .. "/lua/custom/my_snippets"
+vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/lua/custom/my_snippets"
 
 local opt = vim.opt
 local exec = vim.api.nvim_exec -- execute Vimscript
@@ -51,10 +51,10 @@ function _G.toggle_tab_chars()
 end
 
 -- 設置快捷鍵
-vim.cmd([[
+vim.cmd [[
   set list
   command! ToggleTabDisplay lua _G.toggle_tab_chars()
-]])
+]]
 vim.api.nvim_set_keymap("n", "<leader>v", ":ToggleTabDisplay<CR>", { noremap = true, silent = true })
 
 -------------------------------------------------
@@ -70,14 +70,19 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -------------------------------------------------
-local home_dir = os.getenv("HOME")
+local home_dir = os.getenv "HOME"
+local PYTHON_VERSION = "3.12.1"
 -------------------------------------------------
 vim.g.loaded_python2_provider = 0
--- vim.g.loaded_python3_provider = 1
--- vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/3.10.6/bin/python3.10"
--- vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/3.10.6/envs/venv-3.10.6/bin/python3.10"
-vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/3.10.6/envs/venv-3.10.6/bin/python"
+vim.g.loaded_python3_provider = 1
+vim.g.python3_host_prog = home_dir .. "/.pyenv/versions/" .. PYTHON_VERSION .. "/bin/python"
 
-vim.g.node_host_prog = home_dir .. "/n/lib/node_modules/neovim/bin/cli.js"
+vim.g.loaded_node_provider = 1
+vim.g.node_host_prog = home_dir .. "/n/bin/neovim-node-host"
+
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
+
+vim.cmd[[
+  set clipboard+=unnamedplus
+]]

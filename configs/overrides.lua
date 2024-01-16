@@ -43,29 +43,51 @@ M.mason = {
     "clangd",
     "clang-format",
 
+    "rust-analyzer",
     -------------------------------------------------------------------
     -- Python
     -------------------------------------------------------------------
     "pyright", -- LSP Server
     "debugpy", -- Debugger
     "black", -- Formatter
-    -- "mypy", -- Type checker
+    "mypy", -- Type checker
     "ruff", -- Linter
   },
 }
 
 -- git support in nvimtree
-M.nvimtree = {
-  git = {
-    enable = true,
-  },
+local icons = require "custom.icons"
+local function my_on_attach(bufnr)
+  local api = require "nvim-tree.api"
 
-  renderer = {
-    highlight_git = true,
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  -- vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts("Up"))
+  vim.keymap.set("n", "<C-r>", api.tree.change_root_to_parent, opts "Up")
+  vim.keymap.set("n", "?", api.tree.toggle_help, opts "Help")
+  vim.keymap.set("n", "l", api.node.open.preview, opts "Open Preview")
+  -- vim.keymap.set("n", "l", api.node.open.edit, opts "Open")
+end
+
+M.nvimtree = {
+  on_attach = my_on_attach,
+  filters = {
+    custom = { ".git" },
+    exclude = { ".gitignore", ".env" },
+  },
+  diagnostics = {
+    enable = true,
     icons = {
-      show = {
-        git = true,
-      },
+      hint = icons.diagnostics.Hint,
+      info = icons.diagnostics.Information,
+      warning = icons.diagnostics.Warning,
+      error = icons.diagnostics.Error,
     },
   },
 }
