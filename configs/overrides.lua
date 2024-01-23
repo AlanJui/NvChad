@@ -28,26 +28,17 @@ M.mason = {
   ensure_installed = {
     -- lua stuff
     "lua-language-server",
-    "stylua",
     -- web dev stuff
     "typescript-language-server",
     "css-lsp",
     "html-lsp",
     "eslint-lsp",
-    "prettier",
-    "js-debug-adapter",
-    "eslint_d", -- Linter
-    -- c/cpp stuff
-    "clangd",
-    "clang-format",
+    "js-debug-adapter", -- Debugger
     -- rust
     "rust-analyzer",
     -- Python
     "pyright", -- LSP Server
     "debugpy", -- Debugger
-    "black", -- Formatter
-    "mypy", -- Type checker
-    "ruff", -- Linter
   },
 }
 

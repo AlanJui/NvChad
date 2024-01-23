@@ -1,7 +1,7 @@
 require("lint").linters_by_ft = {
   javascript = { "eslint_d" },
   typescript = { "eslint_d" },
-  python = { "pylint" },
+  python = { "pylint", "ruff", "mypy" },
 }
 
 local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -17,6 +17,6 @@ vim.api.nvim_create_autocmd({
   end,
 })
 
-vim.keymap.set("n", "<leader>l", function()
+vim.keymap.set("n", "<leader>cl", function()
   require("lint").try_lint()
 end, { desc = "Lint file" })
