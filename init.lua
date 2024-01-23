@@ -2,9 +2,9 @@
 vim.g.vscode_snippets_path = vim.fn.stdpath "config" .. "/lua/custom/my_snippets"
 
 local opt = vim.opt
-local exec = vim.api.nvim_exec -- execute Vimscript
 local set = vim.opt -- global options
-local cmd = vim.cmd -- execute Vim commands
+-- local cmd = vim.cmd -- execute Vim commands
+-- local exec = vim.api.nvim_exec -- execute Vimscript
 
 -- -----------------------------------------------
 -- options
@@ -83,6 +83,6 @@ vim.g.node_host_prog = home_dir .. "/n/bin/neovim-node-host"
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
-vim.cmd[[
+vim.cmd [[
   set clipboard+=unnamedplus
 ]]
