@@ -77,8 +77,15 @@ M.general = {
     ---------------------------------------------------------------------------
     -- 常用指令
     ---------------------------------------------------------------------------
-    ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    --  format with conform
+    ["<leader>fm"] = {
+      function()
+        require("conform").format()
+      end,
+      "formatting",
+    },
+    ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
     ["<leader>,"] = { ":Telescope buffers<CR>", "Show buffers" },
     ["<leader>e"] = { "<CMD> NvimTreeToggle live_grep <CR>", "Toggle NvimTree" },
     ["<leader><leader>"] = { "<c-^>", "Quick Switch 2 Buffers" }, -- Switch between 2 buffers

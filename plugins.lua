@@ -20,13 +20,34 @@ vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 vim.o.spell = true
 
+---@type NvPluginSpec[]
 local plugins = {
+
   ----------------------------------------------------------------------------
-  -- Core
+  -- Override plugin definition options
   ----------------------------------------------------------------------------
+  { -- Override to setup mason-lspconfig
+    "neovim/nvim-lspconfig",
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lsp-config"
+    end,
+  },
+
+  ----------------------------------------------------------------------------
+  -- Override plugin configs
+  ----------------------------------------------------------------------------
+  {
+    "williamboman/mason.nvim",
+    opts = overrides.mason,
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
+  },
+  { -- File Explorer
+    "nvim-tree/nvim-tree.lua",
+    opts = overrides.nvimtree,
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -78,31 +99,17 @@ local plugins = {
     --   require("core.utils").load_mappings("trouble")
     -- end,
   },
+
   ----------------------------------------------------------------------------
-  -- LSP
+  -- Install a plugin
   ----------------------------------------------------------------------------
-  {
-    "williamboman/mason.nvim",
-    cmd = {
-      "Mason",
-      "MasonInstall",
-      "MasonUninstall",
-      "MasonUninstallAll",
-      "MasonUpdate",
-      "MasonUpdateAll",
-      "MasonSearch",
-      "MasonSearchAll",
-    },
-    opts = overrides.mason.ensure_installed,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      -- require "plugins.configs.lspconfig"
-      -- require "custom.configs.lspconfig"
-      require "custom.configs.lspconfig"
-    end,
-  },
+  -- {
+  --   "max397574/better-escape.nvim",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("better_escape").setup()
+  --   end,
+  -- },
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
@@ -122,35 +129,28 @@ local plugins = {
     end,
   },
   -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   event = "VeryLazy",
-  --   ft = { "python" },
+  --   "nvimtools/none-ls.nvim", -- configure formatters & linters
+  --   lazy = true,
+  --   event = { "BufReadPre", "BufNewFile" },
   --   opts = function()
-  --     return require "custom.configs.null-ls"
+  --     return require "custom.configs.none-ls"
   --   end,
   -- },
   {
-    "nvimtools/none-ls.nvim", -- configure formatters & linters
-    lazy = true,
+    "stevearc/conform.nvim",
+    --  for users those who want auto-save conform + lazyloading!
     event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      return require "custom.configs.none-ls"
+    config = function()
+      require "custom.configs.conform"
     end,
   },
-  -- {
-  --   "mhartington/formatter.nvim",
-  --   event = "VeryLazy",
-  --   opts = function()
-  --     return require "custom.configs.formatter"
-  --   end,
-  -- },
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require "custom.configs.lint"
-  --   end,
-  -- },
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "custom.configs.lint"
+    end,
+  },
   ----------------------------------------------------------------------------
   -- Auto-completion
   ----------------------------------------------------------------------------
@@ -378,11 +378,7 @@ local plugins = {
   ----------------------------------------------------------------------------
   -- UI
   ----------------------------------------------------------------------------
-  -- File Explorer
-  {
-    "nvim-tree/nvim-tree.lua",
-    opts = overrides.nvimtree,
-  },
+
   -- UFO folding
   {
     {
@@ -510,15 +506,15 @@ local plugins = {
     end,
   },
   -- Git commands in nvim
-  {
-    "tpope/vim-fugitive",
-    lazy = false,
-  },
+  -- {
+  --   "tpope/vim-fugitive",
+  --   lazy = false,
+  -- },
   -- Fugitive-companion to interact with github
-  {
-    "tpope/vim-rhubarb",
-    lazy = false,
-  },
+  -- {
+  --   "tpope/vim-rhubarb",
+  --   lazy = false,
+  -- },
   -- Add git related info in the signs columns and popups
   {
     "lewis6991/gitsigns.nvim",
@@ -846,6 +842,24 @@ local plugins = {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
+
+  ----------------------------------------------------------------------------
+  -- To make a plugin not be loaded
+  ----------------------------------------------------------------------------
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   enabled = false
+  -- },
+
+  ----------------------------------------------------------------------------
+  -- All NvChad plugins are lazy-loaded by default
+  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
+  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
+  ----------------------------------------------------------------------------
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   lazy = false,
+  -- },
 }
 
 return plugins

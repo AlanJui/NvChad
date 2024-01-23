@@ -29,24 +29,20 @@ M.mason = {
     -- lua stuff
     "lua-language-server",
     "stylua",
-
     -- web dev stuff
-    -- "deno",
     "typescript-language-server",
     "css-lsp",
     "html-lsp",
     "eslint-lsp",
     "prettier",
     "js-debug-adapter",
-
+    "eslint_d", -- Linter
     -- c/cpp stuff
     "clangd",
     "clang-format",
-
+    -- rust
     "rust-analyzer",
-    -------------------------------------------------------------------
     -- Python
-    -------------------------------------------------------------------
     "pyright", -- LSP Server
     "debugpy", -- Debugger
     "black", -- Formatter
