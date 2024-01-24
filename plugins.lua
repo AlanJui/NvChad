@@ -26,28 +26,17 @@ local plugins = {
   ----------------------------------------------------------------------------
   -- Override plugin definition options
   ----------------------------------------------------------------------------
-  { -- Override to setup mason-lspconfig
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lsp-config"
-    end,
+  { -- File Explorer
+    "nvim-tree/nvim-tree.lua",
+    opts = overrides.nvimtree,
   },
 
   ----------------------------------------------------------------------------
   -- Override plugin configs
   ----------------------------------------------------------------------------
   {
-    "williamboman/mason.nvim",
-    opts = overrides.mason,
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
-  },
-  { -- File Explorer
-    "nvim-tree/nvim-tree.lua",
-    opts = overrides.nvimtree,
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -103,26 +92,18 @@ local plugins = {
   ----------------------------------------------------------------------------
   -- Install a plugin
   ----------------------------------------------------------------------------
-  { -- Auto install linters and formatters for mason
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
+  ----------------------------------------------------------------------------
+  -- LSP
+  ----------------------------------------------------------------------------
+  {
+    "williamboman/mason.nvim",
+    opts = overrides.mason,
+  },
+  { -- Override to setup mason-lspconfig
+    "neovim/nvim-lspconfig",
     config = function()
-      require("mason-tool-installer").setup {
-        ensure_installed = {
-          -- lua stuff
-          "stylua",
-          -- web dev stuff
-          "prettier",     -- Formatter
-          "eslint_d",     -- JavaScript Linter
-          -- c/cpp stuff
-          "clang-format", -- Formatter
-          -- Python
-          "isort",        -- Formatter
-          "black",        -- Formatter
-          "pylint",       -- Linter
-          "ruff",         -- Linter
-          "mypy",         -- Type checker
-        },
-      }
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lsp.lsp-config"
     end,
   },
   {
@@ -130,14 +111,14 @@ local plugins = {
     --  for users those who want auto-save conform + lazyloading!
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require "custom.configs.conform"
+      require "custom.configs.lsp.formatters"
     end,
   },
   {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require "custom.configs.lint"
+      require "custom.configs.lsp.linters"
     end,
   },
   {
