@@ -26,32 +26,34 @@ M.treesitter = {
 
 M.mason = {
   ensure_installed = {
-    "lua-language-server",
-    "rust-analyzer",
-    "ruff-lsp",
-    "typescript-language-server",
+    "lua-language-server", -- Lua LSP Server
+    "stylua",
+    "rust-analyzer", -- Rust LSP Server
+    -- "pyright", -- Python LSP Server
+    -- "python-lsp-server", -- Python LSP Server
+    "ruff-lsp", -- Python LSP Server
+    "debugpy", -- python
+    "ruff", -- Linter
+    "pylint", -- Linter
+    "isort", -- Formatter
+    "black", -- Formatter
+    "mypy", -- Type checker
+    "typescript-language-server", -- JavaScript LSP Server
     "vue-language-server",
+    "js-debug-adapter", -- Javascript DAP
+    "emmet-ls",
     "html-lsp",
     "css-lsp",
     "tailwindcss-language-server",
-    "emmet-ls",
-    "json-lsp",
-    "lemminx", -- xml ls
-    "yaml-language-server",
-    "taplo", -- toml ls
-    "marksman", -- markdown ls
-    "dockerfile-language-server", -- docker ls
-    "stylua",
-    "prettier", -- Formatter
     "eslint_d", -- JavaScript Linter
+    "prettier", -- Formatter
+    "json-lsp",
+    "lemminx", -- XML LSP Server
+    "yaml-language-server",
+    "taplo", -- TOML Lsp Server
+    "marksman", -- Markdown LSP Server
+    "dockerfile-language-server", -- Docker LSP Server
     "clang-format", -- Formatter
-    "isort", -- Formatter
-    "black", -- Formatter
-    "pylint", -- Linter
-    "ruff", -- Linter
-    "mypy", -- Type checker
-    "debugpy", -- python
-    "js-debug-adapter", -- javascript
   },
 }
 
