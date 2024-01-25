@@ -7,20 +7,22 @@ local lspconfig = require "lspconfig"
 local util = lspconfig.util
 
 -- if you just want default config for the servers then put them in a table
--- local servers = {
---   "cssls",  -- css-lsp
---   "html",   -- html-lsp
---   "eslint", -- eslint-lsp
--- }
--- for _, lsp in ipairs(servers) do
---   lspconfig[lsp].setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---   }
--- end
+local servers = {
+  "cssls", -- css-lsp
+  "tailwindcss", -- tailwindcss-lsp
+  "eslint", -- eslint-lsp
+  "taplo", -- toml-lsp
+  "dockerls", -- docker-lsp
+}
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end
 
 -- configure lua server (with special settings)
-lspconfig["lua_ls"].setup({
+lspconfig["lua_ls"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = { -- custom settings for lua
@@ -32,16 +34,16 @@ lspconfig["lua_ls"].setup({
       workspace = {
         -- make language server aware of runtime files
         library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.stdpath("config") .. "/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.stdpath "config" .. "/lua"] = true,
         },
       },
     },
   },
-})
+}
 
 -- configure rust server with plugin
-lspconfig["rust_analyzer"].setup({
+lspconfig["rust_analyzer"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -51,10 +53,10 @@ lspconfig["rust_analyzer"].setup({
       },
     },
   },
-})
+}
 
 -- configure python server with plugin
-lspconfig["ruff_lsp"].setup({
+lspconfig["ruff_lsp"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   init_options = {
@@ -63,7 +65,7 @@ lspconfig["ruff_lsp"].setup({
       args = {},
     },
   },
-})
+}
 
 -- configure python server
 -- lspconfig["pyright"].setup({
@@ -84,19 +86,19 @@ lspconfig["ruff_lsp"].setup({
 -- })
 
 -- configure typescript server with plugin
-lspconfig["tsserver"].setup({
+lspconfig["tsserver"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
 -- configure vue server with plugin
-lspconfig["vuels"].setup({
+lspconfig["vuels"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
 -- configure emmet language server
-lspconfig["emmet_ls"].setup({
+lspconfig["emmet_ls"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
@@ -111,49 +113,49 @@ lspconfig["emmet_ls"].setup({
     "less",
     "svelte",
   },
-})
+}
 
 -- configure html server
-lspconfig["html"].setup({
+lspconfig["html"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
     "html",
     "htmldjango",
   },
-})
+}
 
 -- configure css server
-lspconfig["cssls"].setup({
+lspconfig["cssls"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
 -- configure tailwindcss server
-lspconfig["tailwindcss"].setup({
+lspconfig["tailwindcss"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
 -- configure json server
-lspconfig["jsonls"].setup({
+lspconfig["jsonls"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
     "json",
     "jsonc",
   },
-})
+}
 
 -- configure xml server
-lspconfig["lemminx"].setup({
+lspconfig["lemminx"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = { "xml", "xsd", "xsl", "xslt", "svg" },
-})
+}
 
 -- configure yaml server
-lspconfig["yamlls"].setup({
+lspconfig["yamlls"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
@@ -169,26 +171,26 @@ lspconfig["yamlls"].setup({
       },
     },
   },
-})
+}
 
 -- configure toml server
-lspconfig["taplo"].setup({
+lspconfig["taplo"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
 -- configure docker server
-lspconfig["dockerls"].setup({
+lspconfig["dockerls"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
 -- configure markdown server
-lspconfig["marksman"].setup({
+lspconfig["marksman"].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
     "markdown",
     "markdown.mdx",
   },
-})
+}

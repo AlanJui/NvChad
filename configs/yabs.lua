@@ -1,5 +1,5 @@
-local yabs = require("yabs")
-local telescope = require("telescope")
+local yabs = require "yabs"
+-- local telescope = require "telescope"
 
 local lua_config = {
   tasks = {
@@ -20,7 +20,7 @@ local python_config = {
   },
 }
 
-yabs:setup({
+yabs:setup {
   languages = {
     lua = lua_config,
     python = python_config,
@@ -30,12 +30,12 @@ yabs:setup({
     run = { command = "echo running project...", output = "echo" },
     optional = {
       command = "echo runs on condition",
-      condition = require("yabs.conditions").file_exists("filename.txt"),
+      condition = require("yabs.conditions").file_exists "filename.txt",
     },
   },
   opts = {
     output_types = { quickfix = { open_on_run = "always" } },
   },
-})
+}
 
-telescope.load_extension("yabs")
+-- telescope.load_extension("yabs")

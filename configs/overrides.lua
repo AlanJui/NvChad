@@ -28,12 +28,10 @@ M.mason = {
   ensure_installed = {
     "lua-language-server",
     "rust-analyzer",
-    -- "pyright",
-    -- "pylsp", -- "python-lsp-server"
     "ruff-lsp",
     "typescript-language-server",
     "vue-language-server",
-    "html",
+    "html-lsp",
     "css-lsp",
     "tailwindcss-language-server",
     "emmet-ls",
@@ -43,25 +41,15 @@ M.mason = {
     "taplo", -- toml ls
     "marksman", -- markdown ls
     "dockerfile-language-server", -- docker ls
-    -------------------------
-    -- Linters and Formatters
-    -------------------------
-    -- lua stuff
     "stylua",
-    -- web dev stuff
     "prettier", -- Formatter
     "eslint_d", -- JavaScript Linter
-    -- c/cpp stuff
     "clang-format", -- Formatter
-    -- Python
     "isort", -- Formatter
     "black", -- Formatter
     "pylint", -- Linter
     "ruff", -- Linter
     "mypy", -- Type checker
-    -------------------------
-    -- Debuggers
-    -------------------------
     "debugpy", -- python
     "js-debug-adapter", -- javascript
   },
@@ -149,4 +137,46 @@ M.copilot = {
   },
 }
 
+-- M.mason = {
+--   ensure_installed = {
+--     "lua-language-server",
+--     "rust-analyzer",
+--     -- "pyright",
+--     -- "pylsp", -- "python-lsp-server"
+--     "ruff-lsp",
+--     "typescript-language-server",
+--     "vue-language-server",
+--     "html",
+--     "css-lsp",
+--     "tailwindcss-language-server",
+--     "emmet-ls",
+--     "json-lsp",
+--     "lemminx", -- xml ls
+--     "yaml-language-server",
+--     "taplo", -- toml ls
+--     "marksman", -- markdown ls
+--     "dockerfile-language-server", -- docker ls
+--     -------------------------
+--     -- Linters and Formatters
+--     -------------------------
+--     -- lua stuff
+--     "stylua",
+--     -- web dev stuff
+--     "prettier", -- Formatter
+--     "eslint_d", -- JavaScript Linter
+--     -- c/cpp stuff
+--     "clang-format", -- Formatter
+--     -- Python
+--     "isort", -- Formatter
+--     "black", -- Formatter
+--     "pylint", -- Linter
+--     "ruff", -- Linter
+--     "mypy", -- Type checker
+--     -------------------------
+--     -- Debuggers
+--     -------------------------
+--     "debugpy", -- python
+--     "js-debug-adapter", -- javascript
+--   },
+-- }
 return M
