@@ -97,6 +97,15 @@ local plugins = {
   ----------------------------------------------------------------------------
   {
     "williamboman/mason.nvim",
+    cmd = {
+      "Mason",
+      "MasonInstall",
+      "MasonInstallAll",
+      "MasonUpdate",
+      "MasonUpdateAll",
+      "MasonUninstall",
+      "MasonUninstallAll",
+    },
     opts = overrides.mason,
   },
   { -- Override to setup mason-lspconfig
@@ -211,11 +220,11 @@ local plugins = {
       },
       sources = {
         { name = "nvim_lsp", group_index = 2 },
-        { name = "copilot",  group_index = 2 },
-        { name = "luasnip",  group_index = 2 },
-        { name = "buffer",   group_index = 2 },
+        { name = "copilot", group_index = 2 },
+        { name = "luasnip", group_index = 2 },
+        { name = "buffer", group_index = 2 },
         { name = "nvim_lua", group_index = 2 },
-        { name = "path",     group_index = 2 },
+        { name = "path", group_index = 2 },
       },
     },
   },
@@ -238,16 +247,16 @@ local plugins = {
     lazy = false,
     config = function()
       require("mini.surround").setup {
-        add = "sa",            -- Add surrounding in Normal and Visual modes
-        delete = "sd",         -- Delete surrounding
-        find = "sf",           -- Find surrounding (to the right)
-        find_left = "sF",      -- Find surrounding (to the left)
-        highlight = "sh",      -- Highlight surrounding
-        replace = "sr",        -- Replace surrounding
+        add = "sa", -- Add surrounding in Normal and Visual modes
+        delete = "sd", -- Delete surrounding
+        find = "sf", -- Find surrounding (to the right)
+        find_left = "sF", -- Find surrounding (to the left)
+        highlight = "sh", -- Highlight surrounding
+        replace = "sr", -- Replace surrounding
         update_n_lines = "sn", -- Update `n_lines`
 
-        suffix_last = "l",     -- Suffix to search with "prev" method
-        suffix_next = "n",     -- Suffix to search with "next" method       mappings = {
+        suffix_last = "l", -- Suffix to search with "prev" method
+        suffix_next = "n", -- Suffix to search with "next" method       mappings = {
       }
     end,
   },
@@ -258,8 +267,8 @@ local plugins = {
       --stylua: ignore
       { "<leader>o",  "<CMD>AerialToggle<CR>", desc = "Toggle the Aerial Window", },
       { "<leader>to", "<CMD>AerialToggle<CR>", desc = "Toggle the Aerial Window" },
-      { "}",          "<CMD>AerialNext<CR>",   desc = "Jump forwards 1 symbol" },
-      { "{",          "<CMD>AerialPrev<CR>",   desc = "Jump backwards 1 symbol" },
+      { "}", "<CMD>AerialNext<CR>", desc = "Jump forwards 1 symbol" },
+      { "{", "<CMD>AerialPrev<CR>", desc = "Jump backwards 1 symbol" },
     },
     config = true,
   },
@@ -269,11 +278,11 @@ local plugins = {
     dependices = { "nvim-treesitter" },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     keys = {
-      { "<leader>m",  "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Block" },
+      { "<leader>m", "<cmd>TSJToggle<cr>", desc = "Toggle Split/Join Block" },
       { "<leader>tj", "<cmd>TSJToggle<cr>", desc = "Toggle Join Block" },
       { "<leader>ts", "<cmd>TSJToggle<cr>", desc = "Toggle Split Block" },
-      { "<leader>cj", "<cmd>TSJJoin<cr>",   desc = "Join Block" },
-      { "<leader>cs", "<cmd>TSJSplit<cr>",  desc = "Split Block" },
+      { "<leader>cj", "<cmd>TSJJoin<cr>", desc = "Join Block" },
+      { "<leader>cs", "<cmd>TSJSplit<cr>", desc = "Split Block" },
     },
     config = function()
       require("treesj").setup {}
@@ -336,13 +345,13 @@ local plugins = {
     cmd = { "ToggleTerm", "TermExec" },
     opts = {
       size = 20,
-      hide_numbers = true,      -- hide the number column in toggleterm buffers
+      hide_numbers = true, -- hide the number column in toggleterm buffers
       shade_filetypes = {},
-      autochdir = false,        -- when neovim changes it current directory the terminal will change it's own when next it's opened
-      shade_terminals = true,   -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
-      shading_factor = "0.3",   -- the percentage by which to lighten terminal background, default: -30 (gets multiplied by -3 if background is light)
+      autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
+      shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+      shading_factor = "0.3", -- the percentage by which to lighten terminal background, default: -30 (gets multiplied by -3 if background is light)
       start_in_insert = true,
-      insert_mappings = true,   -- whether or not the open mapping applies in insert mode
+      insert_mappings = true, -- whether or not the open mapping applies in insert mode
       terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
       direction = "float",
       shell = vim.o.shell,
@@ -362,7 +371,7 @@ local plugins = {
     },
     lazy = false,
     keys = {
-      { "<leader>y",  "+YABS" },
+      { "<leader>y", "+YABS" },
       { "<leader>yt", "<cmd>Telescope yabs tasks<cr>", desc = "Execute Task from Selection" },
     },
     config = function()
@@ -387,8 +396,8 @@ local plugins = {
             require("statuscol").setup {
               relculright = true,
               segments = {
-                { text = { builtin.foldfunc },      click = "v:lua.ScFa" },
-                { text = { "%s" },                  click = "v:lua.ScSa" },
+                { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+                { text = { "%s" }, click = "v:lua.ScSa" },
                 { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
               },
             }
@@ -452,7 +461,7 @@ local plugins = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim", -- optional
-      "ibhagwan/fzf-lua",              -- optional
+      "ibhagwan/fzf-lua", -- optional
     },
     cmd = "Neogit",
     keys = {
@@ -533,11 +542,11 @@ local plugins = {
       lazy = false,
       ft = { "plantuml" },
       keys = {
-        { "<leader>up",  "+PlantUML" },
-        { "<leader>upu", "<cmd>PlantumlOpen<cr>",   desc = "Open PlantUML Preview" },
-        { "<leader>ups", "<cmd>PlantumlSave<cr>",   desc = "Save PlantUML Preview" },
+        { "<leader>up", "+PlantUML" },
+        { "<leader>upu", "<cmd>PlantumlOpen<cr>", desc = "Open PlantUML Preview" },
+        { "<leader>ups", "<cmd>PlantumlSave<cr>", desc = "Save PlantUML Preview" },
         { "<leader>upt", "<cmd>PlantumlToggle<cr>", desc = "Toggle PlantUML Preview" },
-        { "<leader>tp",  "<cmd>PlantumlToggle<cr>", desc = "Toggle PlantUML Preview" },
+        { "<leader>tp", "<cmd>PlantumlToggle<cr>", desc = "Toggle PlantUML Preview" },
       },
     },
     -- provides support to mermaid syntax files (e.g. *.mmd, *.mermaid)
@@ -582,11 +591,11 @@ local plugins = {
       cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
       build = "cd app && yarn install",
       keys = {
-        { "<leader>um",  "+MarkDown" },
-        { "<leader>umP", "<cmd> MarkdownPreview<CR>",       desc = "Open Preview" },
-        { "<leader>umc", "<cmd> MarkdownPreviewStop<CR>",   desc = "Close Preview" },
+        { "<leader>um", "+MarkDown" },
+        { "<leader>umP", "<cmd> MarkdownPreview<CR>", desc = "Open Preview" },
+        { "<leader>umc", "<cmd> MarkdownPreviewStop<CR>", desc = "Close Preview" },
         { "<leader>ump", "<cmd> MarkdownPreviewToggle<CR>", desc = "Toggle MarkdownPreview" },
-        { "<leader>tm",  "<cmd> MarkdownPreviewToggle<CR>", desc = "Toggle MarkdownPreview" },
+        { "<leader>tm", "<cmd> MarkdownPreviewToggle<CR>", desc = "Toggle MarkdownPreview" },
       },
       init = function()
         -- 以下這選項，千萬不要設定，否則會造成無法正常預覽
@@ -657,11 +666,11 @@ local plugins = {
       "jbyuki/one-small-step-for-vimkind",
       "mxsdev/nvim-dap-vscode-js",
       -- build debugger from source
-      {
-        "microsoft/vscode-js-debug",
-        -- version = "1.x",
-        build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
-      },
+      -- {
+      --   "microsoft/vscode-js-debug",
+      --   -- version = "1.x",
+      --   build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+      -- },
       {
         "theHamsta/nvim-dap-virtual-text",
         lazy = false,
@@ -814,9 +823,9 @@ local plugins = {
         end,
         desc = "Previous todo comment",
       },
-      { "<leader>xtt", "<cmd>TodoTrouble<cr>",                         desc = "Todo (Trouble)" },
+      { "<leader>xtt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
       { "<leader>xtT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>fx",  "<cmd>TodoTelescope<cr>",                       desc = "Find Todo" },
+      { "<leader>fx", "<cmd>TodoTelescope<cr>", desc = "Find Todo" },
     },
   },
   -- Combine tmux key bindings into Neovim
@@ -830,10 +839,10 @@ local plugins = {
       "TmuxNavigatePrevious",
     },
     keys = {
-      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
