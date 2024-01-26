@@ -20,7 +20,6 @@ vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 vim.o.spell = true
 
----@type NvPluginSpec[]
 local plugins = {
 
   ----------------------------------------------------------------------------
@@ -110,6 +109,9 @@ local plugins = {
   },
   { -- Override to setup mason-lspconfig
     "neovim/nvim-lspconfig",
+    init = function()
+      require("core.utils").lazy_load "nvim-lspconfig"
+    end,
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lsp.lsp-config"
@@ -665,12 +667,6 @@ local plugins = {
       "mfussenegger/nvim-dap-python",
       "jbyuki/one-small-step-for-vimkind",
       "mxsdev/nvim-dap-vscode-js",
-      -- build debugger from source
-      -- {
-      --   "microsoft/vscode-js-debug",
-      --   -- version = "1.x",
-      --   build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
-      -- },
       {
         "theHamsta/nvim-dap-virtual-text",
         lazy = false,

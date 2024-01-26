@@ -1,10 +1,8 @@
-require "plugins.configs.lspconfig"
-
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
+local configs = require "plugins.configs.lspconfig"
+local on_attach = configs.on_attach
+local capabilities = configs.capabilities
 
 local lspconfig = require "lspconfig"
-local util = lspconfig.util
 
 -- if you just want default config for the servers then put them in a table
 local servers = {
@@ -22,25 +20,25 @@ for _, lsp in ipairs(servers) do
 end
 
 -- configure lua server (with special settings)
-lspconfig["lua_ls"].setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = { -- custom settings for lua
-    Lua = {
-      -- make the language server recognize "vim" global
-      diagnostics = {
-        globals = { "vim", "hs" },
-      },
-      workspace = {
-        -- make language server aware of runtime files
-        library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.stdpath "config" .. "/lua"] = true,
-        },
-      },
-    },
-  },
-}
+-- lspconfig["lua_ls"].setup {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   settings = { -- custom settings for lua
+--     Lua = {
+--       -- make the language server recognize "vim" global
+--       diagnostics = {
+--         globals = { "vim", "hs" },
+--       },
+--       workspace = {
+--         -- make language server aware of runtime files
+--         library = {
+--           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+--           [vim.fn.stdpath "config" .. "/lua"] = true,
+--         },
+--       },
+--     },
+--   },
+-- }
 
 -- configure rust server with plugin
 lspconfig["rust_analyzer"].setup {
