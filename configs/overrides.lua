@@ -38,6 +38,7 @@ M.mason = {
     "black", -- Formatter
     "ruff", -- Linter
     "mypy", -- Type checker
+    "djlint", -- Django Linter and Formatter
     "pydocstyle", -- Docstring style checker
     -- "pyflakes", -- Linter
     "typescript-language-server", -- JavaScript LSP Server
