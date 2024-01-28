@@ -30,14 +30,16 @@ M.mason = {
     "stylua",
     "rust-analyzer", -- Rust LSP Server
     -- "pyright", -- Python LSP Server
-    -- "python-lsp-server", -- Python LSP Server
-    "ruff-lsp", -- Python LSP Server
-    "debugpy", -- python
-    "ruff", -- Linter
-    "pylint", -- Linter
+    -- "pylint", -- Linter
+    -- "ruff-lsp", -- Python LSP Server
+    "python-lsp-server", -- Python LSP Server
+    "debugpy", -- DAP
     "isort", -- Formatter
     "black", -- Formatter
+    "ruff", -- Linter
     "mypy", -- Type checker
+    "pydocstyle", -- Docstring style checker
+    -- "pyflakes", -- Linter
     "typescript-language-server", -- JavaScript LSP Server
     "vue-language-server",
     "js-debug-adapter", -- Javascript DAP

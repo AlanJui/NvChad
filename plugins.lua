@@ -22,21 +22,16 @@ vim.o.spell = true
 
 local plugins = {
 
-  ----------------------------------------------------------------------------
-  -- Override plugin definition options
-  ----------------------------------------------------------------------------
   { -- File Explorer
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
   },
 
-  ----------------------------------------------------------------------------
-  -- Override plugin configs
-  ----------------------------------------------------------------------------
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
   },
+
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -75,6 +70,7 @@ local plugins = {
       require "custom.configs.telescope"
     end,
   },
+
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -89,11 +85,18 @@ local plugins = {
   },
 
   ----------------------------------------------------------------------------
-  -- Install a plugin
-  ----------------------------------------------------------------------------
-  ----------------------------------------------------------------------------
   -- LSP
   ----------------------------------------------------------------------------
+  {
+    "neovim/nvim-lspconfig",
+    -- init = function()
+    --   require("core.utils").lazy_load "nvim-lspconfig"
+    -- end,
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lsp.lsp_config"
+    end,
+  },
   {
     "williamboman/mason.nvim",
     cmd = {
@@ -107,19 +110,8 @@ local plugins = {
     },
     opts = overrides.mason,
   },
-  { -- Override to setup mason-lspconfig
-    "neovim/nvim-lspconfig",
-    init = function()
-      require("core.utils").lazy_load "nvim-lspconfig"
-    end,
-    config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lsp.lsp-config"
-    end,
-  },
   {
     "stevearc/conform.nvim",
-    --  for users those who want auto-save conform + lazyloading!
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require "custom.configs.lsp.formatters"
@@ -132,24 +124,24 @@ local plugins = {
       require "custom.configs.lsp.linters"
     end,
   },
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    dependencies = "neovim/nvim-lspconfig",
-    -- opts = function()
-    --   return require "custom.configs.lsp.rust-tools"
-    -- end,
-    -- config = function(_, opts)
-    --   require("rust-tools").setup(opts)
-    -- end,
-  },
-  {
-    "rust-lang/rust.vim",
-    ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
-    end,
-  },
+  -- {
+  --   "simrat39/rust-tools.nvim",
+  --   ft = "rust",
+  --   dependencies = "neovim/nvim-lspconfig",
+  --   -- opts = function()
+  --   --   return require "custom.configs.lsp.rust-tools"
+  --   -- end,
+  --   -- config = function(_, opts)
+  --   --   require("rust-tools").setup(opts)
+  --   -- end,
+  -- },
+  -- {
+  --   "rust-lang/rust.vim",
+  --   ft = "rust",
+  --   init = function()
+  --     vim.g.rustfmt_autosave = 1
+  --   end,
+  -- },
   -- {
   --   "max397574/better-escape.nvim",
   --   event = "InsertEnter",

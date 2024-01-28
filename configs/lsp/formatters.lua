@@ -4,14 +4,14 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
 
-    python = { "isort", "black" },
-    -- python = function(bufnr)
-    --   if require("conform").get_formatter_info("ruff_format", bufnr).available then
-    --     return { "ruff_format" }
-    --   else
-    --     return { "isort", "black" }
-    --   end
-    -- end,
+    -- python = { "isort", "black", "djlint" },
+    python = function(bufnr)
+      if require("conform").get_formatter_info("ruff_format", bufnr).available then
+        return { "ruff_format" }
+      else
+        return { "isort", "black" }
+      end
+    end,
 
     javascript = { "prettier" },
     typescript = { "prettier" },
@@ -28,19 +28,24 @@ local options = {
   -- instead of the above code you could just use a loop! the config is just a table after all!
 
   -- These options will be passed to conform.format()
-  format_on_save = {
-    lsp_fallback = true,
-    async = false,
-    timeout_ms = 500,
-  },
+  -- format_on_save = {
+  --   lsp_fallback = true,
+  --   timeout_ms = 500,
+  -- },
 }
 
 require("conform").setup(options)
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format { bufnr = args.buf }
+  end,
+})
+
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
   require("conform").format {
     lsp_fallback = true,
-    async = false,
     timeout_ms = 500,
   }
 end, { desc = "Format file or selection" })
