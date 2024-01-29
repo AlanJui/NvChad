@@ -1,5 +1,3 @@
-local overrides = require("custom.configs.overrides")
-
 local custom_opts = {
   defaults = {
     mappings = {},
@@ -21,10 +19,10 @@ local custom_opts = {
 }
 
 dofile(vim.g.base46_cache .. "telescope")
-local telescope = require("telescope")
+local telescope = require "telescope"
 
 -- load options and setup
-local base_opts = require("plugins.configs.telescope")
+local base_opts = require "plugins.configs.telescope"
 local opts = vim.tbl_deep_extend("force", base_opts, custom_opts)
 -- print(vim.inspect(opts))
 telescope.setup(opts)
@@ -35,4 +33,4 @@ for _, ext in ipairs(opts.extensions_list) do
 end
 
 -- load keymappings
-require("core.utils").load_mappings("telescope")
+require("core.utils").load_mappings "telescope"
