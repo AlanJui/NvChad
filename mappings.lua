@@ -140,11 +140,13 @@ M.general = {
     ["<leader>cr"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename code" },
     ["<leader>cs"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
     -- Diagnostics
+    ["<leader>cd"] = { "+Diagnostic" },
     ["<leader>cdd"] = { "<cmd> lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", "Show line diagnostics" },
     ["<leader>cdp"] = { "<cmd> lua vim.lsp.diagnostic.goto_prev()<CR>", "Go to previous diagnostic" },
     ["<leader>cdn"] = { "<cmd> lua vim.lsp.diagnostic.goto_next()<CR>", "Go to next diagnostic" },
     ["<leader>cdl"] = { "<cmd> lua vim.lsp.diagnostic.set_loclist()<CR>", "Set loclist" },
     -- Goto
+    ["<leader>cg"] = { "+Goto" },
     ["<leader>cgd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
     ["<leader>cgD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
     ["<leader>cgr"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },

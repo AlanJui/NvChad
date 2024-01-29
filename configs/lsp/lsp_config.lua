@@ -1,7 +1,10 @@
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
+local configs = require "plugins.configs.lspconfig"
+local on_attach = configs.on_attach
+-- local capabilities = configs.capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local lspconfig = require("lspconfig")
+local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
 local servers = {
@@ -181,4 +184,3 @@ lspconfig["marksman"].setup {
 --   capabilities = capabilities,
 --   on_attach = on_attach,
 -- }
-
