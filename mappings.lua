@@ -31,27 +31,18 @@ M.dap = {
     ["<leader>dd"] = { "<cmd> DapDown <CR>", "Down" },
     ["<leader>dl"] = { "<cmd> DapListBreakpoints <CR>", "List breakpoints" },
     ["<leader>dI"] = { "<cmd> DapUI <CR>", "Dap UI" },
-  },
-}
-
--- M.dap = {
---   plugin = true,
---   n = {
---     ["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>" },
---     ["<leader>dus"] = {
---       function()
---         local widgets = require "dap.ui.widgets"
---         local sidebar = widgets.sidebar(widgets.scopes)
---         sidebar.open()
---       end,
---       "Open debugging sidebar",
---     },
---   },
--- }
-
-M.dap_python = {
-  plugin = true,
-  n = {
+    ["<leader>daL"] = {
+      function()
+        require("osv").launch { port = 8086 }
+      end,
+      desc = "Start Lua Debugger Server",
+    },
+    ["<leader>dal"] = {
+      function()
+        require("osv").run_this()
+      end,
+      desc = "Launch Lua Code",
+    },
     ["<leader>dpr"] = {
       function()
         require("dap-python").test_method()

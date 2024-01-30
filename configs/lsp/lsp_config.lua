@@ -1,8 +1,8 @@
 local configs = require "plugins.configs.lspconfig"
 local on_attach = configs.on_attach
--- local capabilities = configs.capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = configs.capabilities
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local lspconfig = require "lspconfig"
 
@@ -20,6 +20,39 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig["lua_ls"].setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.signatureHelpProvider = false
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+          [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
+          [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+        },
+        maxPreload = 100000,
+        preloadFileSize = 10000,
+      },
+    },
+  },
+}
+
+lspconfig["clangd"].setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.signatureHelpProvider = false
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+}
 
 -- configure python ls
 lspconfig["pylsp"].setup {

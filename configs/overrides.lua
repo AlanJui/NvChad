@@ -2,6 +2,8 @@ local M = {}
 
 M.treesitter = {
   ensure_installed = {
+    "c",
+    "cpp",
     "python",
     "lua",
     "html",
@@ -13,7 +15,6 @@ M.treesitter = {
     "scss",
     "typescript",
     "tsx",
-    "c",
     "markdown",
     "markdown_inline",
     "toml",
@@ -56,6 +57,8 @@ M.mason = {
     "taplo", -- TOML Lsp Server
     "marksman", -- Markdown LSP Server
     "dockerfile-language-server", -- Docker LSP Server
+    "clangd", -- C/C++ LSP Server
+    "codelldb", -- C/C++ DAP
     "clang-format", -- Formatter
   },
 }

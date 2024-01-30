@@ -2,6 +2,8 @@ local options = {
   lsp_fallback = true,
 
   formatters_by_ft = {
+    c = { "clang_format" },
+    cpp = { "clang_format" },
     lua = { "stylua" },
 
     -- python = { "isort", "black", "djlint" },
@@ -22,16 +24,22 @@ local options = {
     markdown = { "prettier" },
 
     sh = { "shfmt" },
+
+    -- Use the "*" filetype to run formatters on all filetypes.
+    ["*"] = { "codespell" },
+    -- Use the "_" filetype to run formatters on filetypes that don't
+    -- have other formatters configured.
+    ["_"] = { "trim_whitespace" },
   },
 
   -- adding same formatter for multiple filetypes can look too much work for some
   -- instead of the above code you could just use a loop! the config is just a table after all!
 
   -- These options will be passed to conform.format()
-  -- format_on_save = {
-  --   lsp_fallback = true,
-  --   timeout_ms = 500,
-  -- },
+  format_on_save = {
+    lsp_fallback = true,
+    timeout_ms = 500,
+  },
 }
 
 require("conform").setup(options)

@@ -228,6 +228,60 @@ local plugins = {
     opts = overrides.copilot,
   },
   ----------------------------------------------------------------------------
+  -- DAP
+  ----------------------------------------------------------------------------
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require "dap"
+      local dapui = require "dapui"
+      require("dapui").setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        -- dapui.open { reset = true }
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "jbyuki/one-small-step-for-vimkind",
+      "mfussenegger/nvim-dap-python",
+      "mxsdev/nvim-dap-vscode-js",
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        lazy = false,
+        config = function(_, opts)
+          require("nvim-dap-virtual-text").setup()
+        end,
+      },
+    },
+    config = function()
+      -- Setup DAP Environment
+      require "custom.configs.dap"
+
+      -- Setup DAP for JS/TS
+      require "custom.configs.dap.adapters.js"
+      -- DAP for Lua work in Neovim
+      require "custom.configs.dap.adapters.nlua"
+      -- DAP for Python
+      require "custom.configs.dap.adapters.python"
+      -- DAP for C++
+      require "custom.configs.dap.adapters.cpp"
+
+      -- Load keymappings for DAP
+      require("core.utils").load_mappings "dap"
+    end,
+  },
+  ----------------------------------------------------------------------------
   -- Editting
   ----------------------------------------------------------------------------
   -- Surround
@@ -645,87 +699,6 @@ local plugins = {
         ]]
       end,
     },
-  },
-  ----------------------------------------------------------------------------
-  -- DAP
-  ----------------------------------------------------------------------------
-  {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require "dap"
-      local dapui = require "dapui"
-      require("dapui").setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        -- dapui.open { reset = true }
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end,
-  },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "jbyuki/one-small-step-for-vimkind",
-      "mfussenegger/nvim-dap-python",
-      "mxsdev/nvim-dap-vscode-js",
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        lazy = false,
-        config = function(_, opts)
-          require("nvim-dap-virtual-text").setup()
-        end,
-      },
-      keys = {
-        {
-          "<leader>daL",
-          function()
-            require("osv").launch { port = 8086 }
-          end,
-          desc = "Start Lua Debugger Server",
-        },
-        {
-          "<leader>dal",
-          function()
-            require("osv").run_this()
-          end,
-          desc = "Launch Lua Code",
-        },
-        {
-          "<leader>daP",
-          function()
-            require("dap-python").test_method()
-            require("core.utils").load_mappings "dap_python"
-          end,
-          desc = "Start Python Debugger Server",
-        },
-        {
-          "<leader>dap",
-          function()
-            require("dap-python").test_class()
-          end,
-          desc = "Launch Python Code",
-        },
-      },
-    },
-    config = function()
-      -- Setup DAP Environment
-      require "custom.configs.dap"
-      -- Setup DAP for JS/TS
-      require "custom.configs.dap.adapters.js"
-      -- DAP for Lua work in Neovim
-      require "custom.configs.dap.adapters.nlua"
-      -- DAP for Python
-      require "custom.configs.dap.adapters.python"
-      -- Load keymappings for DAP
-      require("core.utils").load_mappings "dap"
-    end,
   },
   -------------------------------------------------------------------------------
   -- Tools
