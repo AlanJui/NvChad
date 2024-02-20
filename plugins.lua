@@ -150,6 +150,17 @@ local plugins = {
   -- Auto-completion
   ----------------------------------------------------------------------------
   {
+    "zbirenbaum/copilot.lua",
+    lazy = false,
+    event = "InsertEnter",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    config = function()
+      local opts = require("custom.configs.copilot").opts
+      require("copilot").setup(opts)
+    end,
+  },
+  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       {
@@ -218,14 +229,6 @@ local plugins = {
         { name = "path", group_index = 2 },
       },
     },
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    lazy = false,
-    event = "InsertEnter",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    opts = overrides.copilot,
   },
   ----------------------------------------------------------------------------
   -- DAP

@@ -2,26 +2,39 @@ local M = {}
 
 M.treesitter = {
   ensure_installed = {
-    "c",
-    "cpp",
-    "python",
+    -- defaults
+    "vim",
     "lua",
+    "vimdoc",
+    -- python
+    "python",
+    -- web dev
     "html",
     "http",
     "css",
-    "javascript",
-    "jsdoc",
-    "json",
     "scss",
+    "javascript",
     "typescript",
     "tsx",
+    "vue",
+    "jsdoc",
+    -- configuration
+    "json",
+    "toml",
+    "yaml",
+    "xml",
+    -- low level
+    "c",
+    "cpp",
+    "cmake",
+    -- others
+    "bash",
+    "diff",
+    "dockerfile",
+    "gitignore",
     "markdown",
     "markdown_inline",
-    "toml",
-    "vim",
-    "vimdoc",
-    "vue",
-    "yaml",
+    "sql",
   },
 }
 
@@ -97,51 +110,6 @@ M.nvimtree = {
       warning = icons.diagnostics.Warning,
       error = icons.diagnostics.Error,
     },
-  },
-}
-
-M.copilot = {
-  -- Possible configurable fields can be found on:
-  -- https://github.com/zbirenbaum/copilot.lua#setup-and-configuration
-  suggestion = {
-    -- enable = false,
-    enabled = true,
-    auto_trigger = true,
-    debounce = 75,
-    keymap = {
-      accept = "<C-]>",
-      accept_word = false,
-      accept_line = false,
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<M-\\>",
-    },
-  },
-  panel = {
-    -- enable = false,
-    auto_refresh = false,
-    keymap = {
-      jump_prev = "[[",
-      jump_next = "]]",
-      accept = "<CR>",
-      refresh = "gr",
-      open = "<M-CR>",
-    },
-    layout = {
-      position = "bottom", -- | top | left | right
-      ratio = 0.4,
-    },
-  },
-  filetypes = {
-    yaml = false,
-    markdown = false,
-    help = false,
-    gitcommit = false,
-    gitrebase = false,
-    hgcommit = false,
-    svn = false,
-    cvs = false,
-    ["."] = false,
   },
 }
 
