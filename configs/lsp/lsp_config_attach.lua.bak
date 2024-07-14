@@ -275,8 +275,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     opts.desc = "See available code actions"
     vim.keymap.set("n", "<leader>cf", function()
-      -- vim.lsp.buf.format()
-      vim.lsp.buf.format { async = true }
+      vim.lsp.buf.format()
+      -- vim.lsp.buf.format { async = true }
     end, opts)
 
     opts.desc = "List workspace folders"

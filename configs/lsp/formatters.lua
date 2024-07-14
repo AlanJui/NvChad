@@ -1,11 +1,5 @@
-local options = {
-  lsp_fallback = true,
-
+require("conform").setup {
   formatters_by_ft = {
-    c = { "clang_format" },
-    cpp = { "clang_format" },
-    lua = { "stylua" },
-
     -- python = { "isort", "black", "djlint" },
     python = function(bufnr)
       if require("conform").get_formatter_info("ruff_format", bufnr).available then
@@ -15,6 +9,9 @@ local options = {
       end
     end,
 
+    c = { "clang_format" },
+    cpp = { "clang_format" },
+    lua = { "stylua" },
     javascript = { "prettier" },
     typescript = { "prettier" },
     css = { "prettier" },
@@ -22,7 +19,6 @@ local options = {
     json = { "prettier" },
     yaml = { "prettier" },
     markdown = { "prettier" },
-
     sh = { "shfmt" },
 
     -- Use the "*" filetype to run formatters on all filetypes.
@@ -31,19 +27,13 @@ local options = {
     -- have other formatters configured.
     ["_"] = { "trim_whitespace" },
   },
-
-  -- adding same formatter for multiple filetypes can look too much work for some
-  -- instead of the above code you could just use a loop! the config is just a table after all!
-
-  -- These options will be passed to conform.format()
-  format_on_save = {
-    timeout_ms = 500,
-    lsp_format = "fallback",
-  },
+  -- format_on_save = {
+  --   timeout_ms = 500,
+  --   lsp_format = "fallback",
+  -- },
 }
 
-require("conform").setup(options)
-
+-- To format on save
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = "*",
 --   callback = function(args)
@@ -51,9 +41,9 @@ require("conform").setup(options)
 --   end,
 -- })
 
-vim.keymap.set({ "n", "v" }, "<leader>cf", function()
-  require("conform").format {
-    lsp_fallback = true,
-    timeout_ms = 1000,
-  }
-end, { desc = "Format file or selection" })
+-- vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+--   require("conform").format {
+--     lsp_fallback = true,
+--     timeout_ms = 1000,
+--   }
+-- end, { desc = "Format file or selection" })
