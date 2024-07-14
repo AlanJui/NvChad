@@ -66,6 +66,7 @@ M.mason = {
     "json-lsp",
     "lemminx", -- XML LSP Server
     "yaml-language-server",
+    "yamllint", -- YAML Linter
     "taplo", -- TOML Lsp Server
     "marksman", -- Markdown LSP Server
     "dockerfile-language-server", -- Docker LSP Server

@@ -37,19 +37,19 @@ local options = {
 
   -- These options will be passed to conform.format()
   format_on_save = {
-    lsp_fallback = true,
-    timeout_ms = 1000,
+    timeout_ms = 500,
+    lsp_format = "fallback",
   },
 }
 
 require("conform").setup(options)
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format { bufnr = args.buf }
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*",
+--   callback = function(args)
+--     require("conform").format { bufnr = args.buf }
+--   end,
+-- })
 
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
   require("conform").format {

@@ -133,25 +133,25 @@ lspconfig["lemminx"].setup {
   filetypes = { "xml", "xsd", "xsl", "xslt", "svg" },
 }
 
--- configure yaml server
-lspconfig["yamlls"].setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = {
-    "yaml",
-    "yaml.docker-compose",
-  },
-  settings = {
-    yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        -- ["../path/relative/to/file.yml"] = "/.github/workflows/*",
-        -- ["/path/from/root/of/project"] = "/.github/workflows/*",
-      },
-    },
-  },
-}
-
+-- -- configure yaml server
+-- lspconfig["yamlls"].setup {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   filetypes = {
+--     "yaml",
+--     "yaml.docker-compose",
+--   },
+--   settings = {
+--     yaml = {
+--       schemas = {
+--         ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+--         -- ["../path/relative/to/file.yml"] = "/.github/workflows/*",
+--         -- ["/path/from/root/of/project"] = "/.github/workflows/*",
+--       },
+--     },
+--   },
+-- }
+--
 -- configure toml server
 lspconfig["taplo"].setup {
   capabilities = capabilities,

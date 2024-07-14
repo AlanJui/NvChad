@@ -236,7 +236,10 @@ local plugins = {
   {
     "rcarriga/nvim-dap-ui",
     event = "VeryLazy",
-    dependencies = "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
     config = function()
       local dap = require "dap"
       local dapui = require "dapui"
@@ -430,7 +433,6 @@ local plugins = {
   ----------------------------------------------------------------------------
   -- UI
   ----------------------------------------------------------------------------
-
   -- UFO folding
   {
     {
@@ -782,15 +784,15 @@ local plugins = {
   --   "NvChad/nvim-colorizer.lua",
   --   enabled = false
   -- },
-  {
-    "nvimtools/none-ls.nvim", -- configure formatters & linters
-    enabled = false,
-    lazy = true,
-    event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      return require "custom.configs.none-ls"
-    end,
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim", -- configure formatters & linters
+  --   enabled = false,
+  --   lazy = true,
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   opts = function()
+  --     return require "custom.configs.none-ls"
+  --   end,
+  -- },
 
   ----------------------------------------------------------------------------
   -- All NvChad plugins are lazy-loaded by default

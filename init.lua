@@ -86,3 +86,23 @@ vim.g.loaded_perl_provider = 0
 vim.cmd [[
   set clipboard+=unnamedplus
 ]]
+-------------------------------------------------
+-- 關掉英文拼字檢查
+-------------------------------------------------
+-- vim.opt.spell = false
+vim.cmd [[
+  set nospell
+]]
+
+-- vim.g.clipboard = {
+--   name = "win32yank-wsl",
+--   copy = {
+--     ["+"] = "win32yank.exe -i --crlf",
+--     ["*"] = "win32yank.exe -i --crlf",
+--   },
+--   paste = {
+--     ["+"] = "win32yank.exe -o --lf",
+--     ["*"] = "win32yank.exe -o --lf",
+--   },
+--   cache_enabled = 0,
+-- }
