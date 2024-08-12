@@ -115,7 +115,7 @@ vim.api.nvim_create_autocmd("FileType", {
   group = spell_group,
 })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown" },
+  pattern = { "markdown", "yaml" },
   command = "setlocal nospell",
   group = spell_group,
 })
