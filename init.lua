@@ -82,16 +82,11 @@ vim.g.node_host_prog = home_dir .. "/n/bin/neovim-node-host"
 
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
-
+-------------------------------------------------
+-- 設置剪貼板
+-------------------------------------------------
 vim.cmd [[
   set clipboard+=unnamedplus
-]]
--------------------------------------------------
--- 關掉英文拼字檢查
--------------------------------------------------
--- vim.opt.spell = false
-vim.cmd [[
-  set nospell
 ]]
 
 -- vim.g.clipboard = {
@@ -106,3 +101,26 @@ vim.cmd [[
 --   },
 --   cache_enabled = 0,
 -- }
+-------------------------------------------------
+-- 關掉英文拼字檢查
+-------------------------------------------------
+-- vim.opt.spell = false
+-- vim.cmd [[
+--   set spelllang=en_us,cjk
+-- ]]
+local spell_group = vim.api.nvim_create_augroup("spell_group", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lua", "python", "go", },
+  command = "setlocal spell spelllang=en_us,cjk",
+  group = spell_group,
+})
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown" },
+  command = "setlocal nospell",
+  group = spell_group,
+})
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*", -- disable spellchecking in the embeded terminal
+  command = "setlocal nospell",
+  group = spell_group,
+})
