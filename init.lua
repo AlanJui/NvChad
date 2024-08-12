@@ -124,3 +124,14 @@ vim.api.nvim_create_autocmd("TermOpen", {
   command = "setlocal nospell",
   group = spell_group,
 })
+-------------------------------------------------
+-- 避免 Toggle Terminal 被 whcih_key 插入干擾
+-------------------------------------------------
+vim.cmd [[
+  autocmd TermOpen * setlocal nonumber norelativenumber | setlocal signcolumn=no | setlocal winhl=Normal:Normal
+  autocmd TermOpen * lua vim.b.which_key_ignore = true
+]]
+-- 禁用 `toggleterm` 终端中的空格键触发
+vim.cmd [[
+  autocmd TermOpen term://*toggleterm#* lua vim.b.which_key_ignore = true
+]]

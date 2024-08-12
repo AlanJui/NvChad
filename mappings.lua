@@ -414,10 +414,10 @@ M.general = {
       end,
       "Toggle vertical term",
     },
-    ["<leader><leader>"] = {
-      "<cmd>wincmd k<cr>",
-      "Back to the top",
-    },
+    -- ["<leader><leader>"] = {
+    --   "<cmd>wincmd k<cr>",
+    --   "Back to the top",
+    -- },
   },
 }
 

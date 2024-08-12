@@ -407,6 +407,10 @@ local plugins = {
       direction = "float",
       shell = vim.o.shell,
       auto_scroll = true, -- automatically scroll to the bottom on terminal output
+      on_open = function(term)
+        -- 禁用 `which_key`
+        vim.api.nvim_buf_set_var(term.bufnr, "which_key_ignore", true)
+      end,
     },
     config = function()
       require "custom.configs.toggleterm"
